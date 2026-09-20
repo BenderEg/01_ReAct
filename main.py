@@ -196,7 +196,7 @@ CONFIGS = {
 }
 
 
-def agent(question, model, tool_names, max_steps=1):
+def agent(question, model, tool_names, max_steps=8):
     messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": question}]
     before, started = ledger.total, time.perf_counter()
     answer, steps = agent_loop(messages, model, tool_names, max_steps)
