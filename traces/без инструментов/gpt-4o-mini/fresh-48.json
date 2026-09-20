@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-48",
+  "source": "fresh",
+  "question": "What was Kylian Mbappé's total international goal count for France when he became the nation's all-time leading goal scorer in the France vs Senegal group stage match?",
+  "answer": "58",
+  "evidence": "In scoring his second goal of the game, Mbappé became the highest scorer in France's history with 58 goals.",
+  "page": "2026 FIFA World Cup Group I",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_I#France_vs_Senegal"
+ },
+ "answer": "I need to find the specific information about Kylian Mbappé's total international goal count for France when he became the nation's all-time leading goal scorer during the France vs Senegal match in the 2026 World Cup group stage. Let's search for it. \n\nSearching for \"Kylian Mbappé total international goals France vs Senegal 2026 World Cup\".",
+ "correct": false,
+ "cost": 6.479999999999984e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "What was Kylian Mbappé's total international goal count for France when he became the nation's all-time leading goal scorer in the France vs Senegal group stage match?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to find the specific information about Kylian Mbappé's total international goal count for France when he became the nation's all-time leading goal scorer during the France vs Senegal match in the 2026 World Cup group stage. Let's search for it. \n\nSearching for \"Kylian Mbappé total international goals France vs Senegal 2026 World Cup\".",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

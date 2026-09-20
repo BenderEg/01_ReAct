@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-2",
+  "source": "fresh",
+  "question": "The group stage match between Mexico and South Africa on June 11, 2026, took place how many years after these teams previously faced each other in a World Cup opening match?",
+  "answer": "16",
+  "evidence": "The two teams had faced each other four times, most recently in a 1–1 draw in the 2010 FIFA World Cup opening match, with South Africa as the host nation. This match coincidentally took place exactly 16 years after.",
+  "page": "2026 FIFA World Cup Group A",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A#Mexico_vs_South_Africa"
+ },
+ "answer": "The previous World Cup opening match between Mexico and South Africa took place on June 11, 2010. The match in 2026 is on June 11, 2026. Therefore, the difference between the two dates is 16 years.\n\nFINAL: 16",
+ "correct": true,
+ "cost": 5.385000000000001e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "The group stage match between Mexico and South Africa on June 11, 2026, took place how many years after these teams previously faced each other in a World Cup opening match?"
+  },
+  {
+   "role": "assistant",
+   "content": "The previous World Cup opening match between Mexico and South Africa took place on June 11, 2010. The match in 2026 is on June 11, 2026. Therefore, the difference between the two dates is 16 years.\n\nFINAL: 16",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

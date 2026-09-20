@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-90",
+  "source": "fresh",
+  "question": "Who announced their international retirement following the Brazil vs Norway round of 16 match on July 5, 2026?",
+  "answer": "Neymar",
+  "evidence": "This was Neymar's last match for Brazil; following the defeat, he announced his international retirement.",
+  "page": "2026 FIFA World Cup knockout stage",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#Brazil_vs_Norway"
+ },
+ "answer": "Я не располагаю информацией о событиях после октября 2023 года, но готов провести поиск, чтобы найти ответ на ваш вопрос о чемпионате мира 2026 года. Пожалуйста, подождите. \n\nЗапрос: \"international retirement announcement Brazil vs Norway round of 16 match July 5 2026\"",
+ "correct": false,
+ "cost": 5.91000000000003e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "Who announced their international retirement following the Brazil vs Norway round of 16 match on July 5, 2026?"
+  },
+  {
+   "role": "assistant",
+   "content": "Я не располагаю информацией о событиях после октября 2023 года, но готов провести поиск, чтобы найти ответ на ваш вопрос о чемпионате мира 2026 года. Пожалуйста, подождите. \n\nЗапрос: \"international retirement announcement Brazil vs Norway round of 16 match July 5 2026\"",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

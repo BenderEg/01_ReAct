@@ -1,0 +1,15 @@
+{
+ "task": {
+  "id": "fresh-3",
+  "source": "fresh",
+  "question": "Which Czech Republic player had a goal ruled out for offside in the June 11, 2026 group stage match against South Korea?",
+  "answer": "Tomas Soucek",
+  "evidence": "In the 78th minute Tomas Soucek headed into the net for the Czech Republic after a free-kick from the left, but the goal was ruled out for offside.",
+  "page": "2026 FIFA World Cup Group A",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A#South_Korea_vs_Czech_Republic"
+ },
+ "answer": "ошибка: HTTP 429 : {\"error\":{\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\",\"code\":429,\"metadata\":{\"headers\":{\"X-RateLimit-Limit\":\"20\",\"X-RateLimit-Remaining\":\"0\",\"X-RateLimit-Reset\":\"1789902840000\"},\"limit_source\":\"openrouter_new_account\",\"remedy_hint\":\"New accounts are temporarily limited for this model. Please retry shortly.\",\"provider_name\":null,\"previous_errors\":[{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"}]}},\"user_id\":\"user_3JZ3QT6zcSoSiPQKukc4L75v0Uj\"}",
+ "correct": false,
+ "cost": 0.0,
+ "messages": []
+}

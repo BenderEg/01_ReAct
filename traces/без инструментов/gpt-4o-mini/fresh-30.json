@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-30",
+  "source": "fresh",
+  "question": "The Ecuador vs Germany group stage match on June 25, 2026, at MetLife Stadium marked when the 2026 World Cup surpassed which previous World Cup's attendance record?",
+  "answer": "1994 FIFA World Cup",
+  "evidence": "This surpassed the previous record of 3,587,538, which had been held for 32 years by the 1994 FIFA World Cup, also hosted in the United States.",
+  "page": "2026 FIFA World Cup Group E",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_E#Ecuador_vs_Germany"
+ },
+ "answer": "Дайте мне секунду, чтобы найти эту информацию. \n\nПоиск информации о чемпионате мира 2026 года и рекорде посещаемости предыдущего чемпионата. ",
+ "correct": false,
+ "cost": 4.245000000000008e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "The Ecuador vs Germany group stage match on June 25, 2026, at MetLife Stadium marked when the 2026 World Cup surpassed which previous World Cup's attendance record?"
+  },
+  {
+   "role": "assistant",
+   "content": "Дайте мне секунду, чтобы найти эту информацию. \n\nПоиск информации о чемпионате мира 2026 года и рекорде посещаемости предыдущего чемпионата. ",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-24",
+  "source": "fresh",
+  "question": "Who was the referee for the Paraguay vs Australia group stage match on June 25, 2026?",
+  "answer": "Clément Turpin",
+  "evidence": "Referee: Clément Turpin (France)",
+  "page": "2026 FIFA World Cup Group D",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_D#Paraguay_vs_Australia"
+ },
+ "answer": "I will look up the information regarding the referee for the Paraguay vs Australia group stage match on June 25, 2026. \n\nSearch query: \"referee Paraguay vs Australia group stage match June 25 2026 World Cup\"\n\n(Please hold on a moment while I get this information.)",
+ "correct": false,
+ "cost": 5.444999999999994e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "Who was the referee for the Paraguay vs Australia group stage match on June 25, 2026?"
+  },
+  {
+   "role": "assistant",
+   "content": "I will look up the information regarding the referee for the Paraguay vs Australia group stage match on June 25, 2026. \n\nSearch query: \"referee Paraguay vs Australia group stage match June 25 2026 World Cup\"\n\n(Please hold on a moment while I get this information.)",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-36",
+  "source": "fresh",
+  "question": "In the Belgium vs Egypt group stage match on June 15, 2026, whose own goal allowed Belgium to equalize?",
+  "answer": "Mohamed Hany",
+  "evidence": "a costly own goal by Mohamed Hany allowed Belgium to equalize",
+  "page": "2026 FIFA World Cup Group G",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_G#Belgium_vs_Egypt"
+ },
+ "answer": "I will look up the information about the Belgium vs Egypt group stage match on June 15, 2026. \n\nSearching for details about this specific match.",
+ "correct": false,
+ "cost": 3.8400000000000066e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the Belgium vs Egypt group stage match on June 15, 2026, whose own goal allowed Belgium to equalize?"
+  },
+  {
+   "role": "assistant",
+   "content": "I will look up the information about the Belgium vs Egypt group stage match on June 15, 2026. \n\nSearching for details about this specific match.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

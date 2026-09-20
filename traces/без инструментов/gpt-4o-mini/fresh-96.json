@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-96",
+  "source": "fresh",
+  "question": "In the France vs Morocco knockout stage match on July 9, 2026, until which minute had Morocco failed to record a shot on target?",
+  "answer": "84th minute",
+  "evidence": "Morocco was missing injured forward Ismael Saibari and failed to get a shot on target until the 84th minute.",
+  "page": "2026 FIFA World Cup knockout stage",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#France_vs_Morocco"
+ },
+ "answer": "I need to look up the specific details about the match between France and Morocco on July 9, 2026, to find out when Morocco recorded their first shot on target. Please hold on for a moment. \n\nПоиск информации о матче Франция против Марокко на чемпионате мира 2026 года.",
+ "correct": false,
+ "cost": 5.8800000000000345e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the France vs Morocco knockout stage match on July 9, 2026, until which minute had Morocco failed to record a shot on target?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to look up the specific details about the match between France and Morocco on July 9, 2026, to find out when Morocco recorded their first shot on target. Please hold on for a moment. \n\nПоиск информации о матче Франция против Марокко на чемпионате мира 2026 года.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

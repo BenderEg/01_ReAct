@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-29",
+  "source": "fresh",
+  "question": "In which Philadelphia stadium was the Group E match between Curaçao and Ivory Coast played on June 25, 2026?",
+  "answer": "Lincoln Financial Field",
+  "evidence": "Lincoln Financial Field, Philadelphia",
+  "page": "2026 FIFA World Cup Group E",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_E#Curaçao_vs_Ivory_Coast"
+ },
+ "answer": "I will check the information about the Group E match between Curaçao and Ivory Coast in Philadelphia for the 2026 World Cup. \n\nSearching for: \"2026 World Cup Philadelphia Group E match Curaçao vs Ivory Coast stadium\" \n\nPlease hold on. ",
+ "correct": false,
+ "cost": 5.024999999999995e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In which Philadelphia stadium was the Group E match between Curaçao and Ivory Coast played on June 25, 2026?"
+  },
+  {
+   "role": "assistant",
+   "content": "I will check the information about the Group E match between Curaçao and Ivory Coast in Philadelphia for the 2026 World Cup. \n\nSearching for: \"2026 World Cup Philadelphia Group E match Curaçao vs Ivory Coast stadium\" \n\nPlease hold on. ",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

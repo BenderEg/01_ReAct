@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-79",
+  "source": "fresh",
+  "question": "How many years was it since DR Congo last appeared in the FIFA World Cup before their knockout stage match against England on July 1, 2026?",
+  "answer": "52 years",
+  "evidence": "Although DR Congo were eliminated, this marked their best-ever finish in the FIFA World Cup upon their return after 52 years.",
+  "page": "2026 FIFA World Cup round of 32",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_round_of_32#England_vs_DR_Congo"
+ },
+ "answer": "DR Congo last appeared in the FIFA World Cup in 1974. The knockout stage match against England is scheduled for July 1, 2026. \n\nTo find out how many years it was since their last appearance in 1974 until 2026, we calculate:\n\n2026 - 1974 = 52 years\n\nFINAL: 52",
+ "correct": false,
+ "cost": 6.254999999999976e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "How many years was it since DR Congo last appeared in the FIFA World Cup before their knockout stage match against England on July 1, 2026?"
+  },
+  {
+   "role": "assistant",
+   "content": "DR Congo last appeared in the FIFA World Cup in 1974. The knockout stage match against England is scheduled for July 1, 2026. \n\nTo find out how many years it was since their last appearance in 1974 until 2026, we calculate:\n\n2026 - 1974 = 52 years\n\nFINAL: 52",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

@@ -1,0 +1,140 @@
+{
+ "task": {
+  "id": "fresh-48",
+  "source": "fresh",
+  "question": "What was Kylian Mbappé's total international goal count for France when he became the nation's all-time leading goal scorer in the France vs Senegal group stage match?",
+  "answer": "58",
+  "evidence": "In scoring his second goal of the game, Mbappé became the highest scorer in France's history with 58 goals.",
+  "page": "2026 FIFA World Cup Group I",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_I#France_vs_Senegal"
+ },
+ "answer": "Kylian Mbappé became France's all-time leading goal scorer with a total of 66 international goals during the group stage match against Senegal. \n\nFINAL: 66",
+ "correct": false,
+ "cost": 0.0009460500000000038,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "What was Kylian Mbappé's total international goal count for France when he became the nation's all-time leading goal scorer in the France vs Senegal group stage match?"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_b6OLeEe716uAtC4uMpgYWeum",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Kylian Mbappé total international goal count France all-time leading goal scorer France vs Senegal\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_b6OLeEe716uAtC4uMpgYWeum",
+   "content": "[List of FIFA World Cup top goalscorers] Players have scored more than 3,000 goals in the 23 men's FIFA World Cup tournaments, the goal record includes own goals scored, but not counting penalty shoot-outs. Since the first goal, by French player Lucien Laurent in 1930, nearly 1,300 footballers have scored goals at the World Cup tournaments, of whom 111 have scored five or more. The top goalscorer of the inaugural competition was Argentina's Guillermo Stábile, with eight goals. Since then, only 28 players have scored more World Cup goals in total than Stábile did during the 1930 tournament. The first to do so was Brazil's Ademir in 1950, with nine goals. This was followed by Hungary's Sándor Kocsis scoring eleven in 1954. At the 1958 tournament, France's Just Fontaine further improved on this record, recording thirteen goals in just six matches. Gerd Müller then scored ten goals for West Germany in 1970, before breaking the overall record when he scored his fourteenth World Cup goal during West Germany's win in the 1974 final. Müller's record stood for more than three decades, until Ronaldo recorded fifteen goals between 1998 and 2006 for Brazil. Germany's Miroslav Klose broke Ronaldo's record with his 16th goal in 2014; his record stood until Argentina's Lionel Messi scored his 17th through 21st goals in 2026. At the same World Cup, France's Kylian Mbappé became the current record holder after scoring his 22nd goal. Of all the players who have played at the World Cup, only six have achieved an average of two goals o | other articles: 2026 FIFA World Cup, List of Real Madrid CF records and statistics"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_VzfXeBntiDMcmH1Ro4jVkdz3",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Kylian Mbappé France all-time leading goal scorer when became record\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_VzfXeBntiDMcmH1Ro4jVkdz3",
+   "content": "[Kylian Mbappé] Kylian Mbappé Lottin (born 20 December 1998) is a French professional footballer who plays as a forward for La Liga club Real Madrid and captains the France national team. Widely regarded as one of the best players in the world and one of the greatest French players of all time, he is known for his pace, dribbling, and finishing. Mbappé has scored over 400 goals in his senior career, ranking as the all-time top goalscorer for Paris Saint-Germain (256), the France national team (66), and the FIFA World Cup (22). Born in Paris and raised in Bondy, Mbappé began his senior career in 2015 with Monaco, where he won the 2016–17 Ligue 1 title, the club's first league title in 17 years. In 2017, at age 18, he signed for Paris Saint-Germain (PSG) on an eventual permanent transfer worth €180 million, making him the second-most-expensive player in the world. He won 15 trophies with PSG, including six Ligue 1 titles and four Coupes de France, and helped them reach the Champions League final in 2020. He also finished as the league's top goalscorer a record six times, and won Ligue 1 Player of the Year a record five times. In 2024, Mbappé joined Real Madrid on a free transfer. In his debut season, he scored in the UEFA Super Cup and FIFA Intercontinental Cup as Madrid won both titles. He won the European Golden Shoe in 2025. He was the top scorer in La Liga in 2025 and 2026, and in the Champions League in 2026. Mbappé made his senior debut for France in 2017. At the 2018 FIFA World Cup, he  | other articles: List of international goals scored by Kylian Mbappé, List of FIFA World Cup top goalscorers"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_lKwEXsFWzFNvWUUnpiSL09Gm",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Kylian Mbappé became France all-time leading goal scorer total goals group stage Senegal\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_lKwEXsFWzFNvWUUnpiSL09Gm",
+   "content": "[Kylian Mbappé] Kylian Mbappé Lottin (born 20 December 1998) is a French professional footballer who plays as a forward for La Liga club Real Madrid and captains the France national team. Widely regarded as one of the best players in the world and one of the greatest French players of all time, he is known for his pace, dribbling, and finishing. Mbappé has scored over 400 goals in his senior career, ranking as the all-time top goalscorer for Paris Saint-Germain (256), the France national team (66), and the FIFA World Cup (22). Born in Paris and raised in Bondy, Mbappé began his senior career in 2015 with Monaco, where he won the 2016–17 Ligue 1 title, the club's first league title in 17 years. In 2017, at age 18, he signed for Paris Saint-Germain (PSG) on an eventual permanent transfer worth €180 million, making him the second-most-expensive player in the world. He won 15 trophies with PSG, including six Ligue 1 titles and four Coupes de France, and helped them reach the Champions League final in 2020. He also finished as the league's top goalscorer a record six times, and won Ligue 1 Player of the Year a record five times. In 2024, Mbappé joined Real Madrid on a free transfer. In his debut season, he scored in the UEFA Super Cup and FIFA Intercontinental Cup as Madrid won both titles. He won the European Golden Shoe in 2025. He was the top scorer in La Liga in 2025 and 2026, and in the Champions League in 2026. Mbappé made his senior debut for France in 2017. At the 2018 FIFA World Cup, he  | other articles: List of FIFA World Cup top goalscorers, France national football team"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_iNg0XH0U25ryOhl3ZWeKDhoX",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Kylian Mbappé total international goals when he became France all-time leading scorer\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_iNg0XH0U25ryOhl3ZWeKDhoX",
+   "content": "[Kylian Mbappé] Kylian Mbappé Lottin (born 20 December 1998) is a French professional footballer who plays as a forward for La Liga club Real Madrid and captains the France national team. Widely regarded as one of the best players in the world and one of the greatest French players of all time, he is known for his pace, dribbling, and finishing. Mbappé has scored over 400 goals in his senior career, ranking as the all-time top goalscorer for Paris Saint-Germain (256), the France national team (66), and the FIFA World Cup (22). Born in Paris and raised in Bondy, Mbappé began his senior career in 2015 with Monaco, where he won the 2016–17 Ligue 1 title, the club's first league title in 17 years. In 2017, at age 18, he signed for Paris Saint-Germain (PSG) on an eventual permanent transfer worth €180 million, making him the second-most-expensive player in the world. He won 15 trophies with PSG, including six Ligue 1 titles and four Coupes de France, and helped them reach the Champions League final in 2020. He also finished as the league's top goalscorer a record six times, and won Ligue 1 Player of the Year a record five times. In 2024, Mbappé joined Real Madrid on a free transfer. In his debut season, he scored in the UEFA Super Cup and FIFA Intercontinental Cup as Madrid won both titles. He won the European Golden Shoe in 2025. He was the top scorer in La Liga in 2025 and 2026, and in the Champions League in 2026. Mbappé made his senior debut for France in 2017. At the 2018 FIFA World Cup, he  | other articles: List of international goals scored by Kylian Mbappé, List of FIFA World Cup top goalscorers"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_ReLPE6A2GOjndBhOgZIdOSFr",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Kylian Mbappé becomes France all-time top scorer Senegal goals total international goals\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_ReLPE6A2GOjndBhOgZIdOSFr",
+   "content": "[Kylian Mbappé] Kylian Mbappé Lottin (born 20 December 1998) is a French professional footballer who plays as a forward for La Liga club Real Madrid and captains the France national team. Widely regarded as one of the best players in the world and one of the greatest French players of all time, he is known for his pace, dribbling, and finishing. Mbappé has scored over 400 goals in his senior career, ranking as the all-time top goalscorer for Paris Saint-Germain (256), the France national team (66), and the FIFA World Cup (22). Born in Paris and raised in Bondy, Mbappé began his senior career in 2015 with Monaco, where he won the 2016–17 Ligue 1 title, the club's first league title in 17 years. In 2017, at age 18, he signed for Paris Saint-Germain (PSG) on an eventual permanent transfer worth €180 million, making him the second-most-expensive player in the world. He won 15 trophies with PSG, including six Ligue 1 titles and four Coupes de France, and helped them reach the Champions League final in 2020. He also finished as the league's top goalscorer a record six times, and won Ligue 1 Player of the Year a record five times. In 2024, Mbappé joined Real Madrid on a free transfer. In his debut season, he scored in the UEFA Super Cup and FIFA Intercontinental Cup as Madrid won both titles. He won the European Golden Shoe in 2025. He was the top scorer in La Liga in 2025 and 2026, and in the Champions League in 2026. Mbappé made his senior debut for France in 2017. At the 2018 FIFA World Cup, he  | other articles: List of international goals scored by Kylian Mbappé, Zinedine Zidane"
+  },
+  {
+   "role": "assistant",
+   "content": "Kylian Mbappé became France's all-time leading goal scorer with a total of 66 international goals during the group stage match against Senegal. \n\nFINAL: 66",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

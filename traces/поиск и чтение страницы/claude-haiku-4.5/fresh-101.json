@@ -1,0 +1,15 @@
+{
+ "task": {
+  "id": "fresh-101",
+  "source": "fresh",
+  "question": "In the England vs Argentina semi-final, what message was displayed on a banner by Argentine players after the match?",
+  "answer": "Las Malvinas son argentinas",
+  "evidence": "After the match, some Argentine players displayed a banner that read \"Las Malvinas son argentinas\" (\"The Falkland Islands are Argentinian\"), in reference to the territory dispute between Argentina and the UK",
+  "page": "2026 FIFA World Cup knockout stage",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#England_vs_Argentina"
+ },
+ "answer": "ошибка: HTTP 429 : {\"error\":{\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\",\"code\":429,\"metadata\":{\"headers\":{\"X-RateLimit-Limit\":\"20\",\"X-RateLimit-Remaining\":\"0\",\"X-RateLimit-Reset\":\"1789904460000\"},\"limit_source\":\"openrouter_new_account\",\"remedy_hint\":\"New accounts are temporarily limited for this model. Please retry shortly.\",\"provider_name\":null,\"previous_errors\":[{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"}]}},\"user_id\":\"user_3JZ3QT6zcSoSiPQKukc4L75v0Uj\"}",
+ "correct": false,
+ "cost": 0.0,
+ "messages": []
+}

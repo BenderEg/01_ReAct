@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-70",
+  "source": "fresh",
+  "question": "What was the attendance at the Panama vs England round of 16 match on June 27, 2026?",
+  "answer": "80,663",
+  "evidence": "Attendance: 80,663",
+  "page": "2026 FIFA World Cup Group L",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_L#Panama_vs_England"
+ },
+ "answer": "I need to look up the attendance for the Panama vs. England round of 16 match on June 27, 2026. Please hold on a moment. \n\nSearching for the attendance at the Panama vs. England match on June 27, 2026.",
+ "correct": false,
+ "cost": 5.114999999999981e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "What was the attendance at the Panama vs England round of 16 match on June 27, 2026?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to look up the attendance for the Panama vs. England round of 16 match on June 27, 2026. Please hold on a moment. \n\nSearching for the attendance at the Panama vs. England match on June 27, 2026.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

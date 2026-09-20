@@ -1,0 +1,15 @@
+{
+ "task": {
+  "id": "fresh-18",
+  "source": "fresh",
+  "question": "In the group stage match between Morocco and Haiti on June 24, 2026, who scored an own goal in the 10th minute?",
+  "answer": "Yassine Bounou",
+  "evidence": "Yassine Bounou made a costly own goal in the 10-minute first half. The goalscorers are listed as 'Bounou 10' ( o.g. )' indicating an own goal by Bounou in the 10th minute.",
+  "page": "2026 FIFA World Cup Group C",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_C#Morocco_vs_Haiti"
+ },
+ "answer": "ошибка: HTTP 429 : {\"error\":{\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\",\"code\":429,\"metadata\":{\"headers\":{\"X-RateLimit-Limit\":\"20\",\"X-RateLimit-Remaining\":\"0\",\"X-RateLimit-Reset\":\"1789903080000\"},\"limit_source\":\"openrouter_new_account\",\"remedy_hint\":\"New accounts are temporarily limited for this model. Please retry shortly.\",\"provider_name\":null,\"previous_errors\":[{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"}]}},\"user_id\":\"user_3JZ3QT6zcSoSiPQKukc4L75v0Uj\"}",
+ "correct": false,
+ "cost": 0.0,
+ "messages": []
+}

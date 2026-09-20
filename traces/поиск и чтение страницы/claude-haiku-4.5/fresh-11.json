@@ -1,0 +1,15 @@
+{
+ "task": {
+  "id": "fresh-11",
+  "source": "fresh",
+  "question": "Which co-host nation remained undefeated through the group stage after Switzerland's victory over Canada?",
+  "answer": "Mexico",
+  "evidence": "This leaves Mexico as the only co-host to remain undefeated, having won all of their group stage matches.",
+  "page": "2026 FIFA World Cup Group B",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_B#Switzerland_vs_Canada"
+ },
+ "answer": "ошибка: HTTP 429 : {\"error\":{\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\",\"code\":429,\"metadata\":{\"headers\":{\"X-RateLimit-Limit\":\"20\",\"X-RateLimit-Remaining\":\"0\",\"X-RateLimit-Reset\":\"1789902960000\"},\"limit_source\":\"openrouter_new_account\",\"remedy_hint\":\"New accounts are temporarily limited for this model. Please retry shortly.\",\"provider_name\":null,\"previous_errors\":[{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"}]}},\"user_id\":\"user_3JZ3QT6zcSoSiPQKukc4L75v0Uj\"}",
+ "correct": false,
+ "cost": 0.0,
+ "messages": []
+}

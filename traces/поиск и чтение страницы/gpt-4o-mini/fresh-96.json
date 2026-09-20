@@ -1,0 +1,74 @@
+{
+ "task": {
+  "id": "fresh-96",
+  "source": "fresh",
+  "question": "In the France vs Morocco knockout stage match on July 9, 2026, until which minute had Morocco failed to record a shot on target?",
+  "answer": "84th minute",
+  "evidence": "Morocco was missing injured forward Ismael Saibari and failed to get a shot on target until the 84th minute.",
+  "page": "2026 FIFA World Cup knockout stage",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#France_vs_Morocco"
+ },
+ "answer": "Morocco failed to record a shot on target until the 84th minute. \n\nFINAL: 84",
+ "correct": false,
+ "cost": 0.0002236499999999919,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the France vs Morocco knockout stage match on July 9, 2026, until which minute had Morocco failed to record a shot on target?"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_i9ak2ls2dIhIb5L7q9YROvVU",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"France vs Morocco knockout stage match July 9 2026\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_i9ak2ls2dIhIb5L7q9YROvVU",
+   "content": "[2026 FIFA World Cup knockout stage] The knockout stage of the 2026 FIFA World Cup was the second and final stage of the competition, following the group stage. Played from June 28 to July 19, 2026, the knockout stage ended with the final, held at MetLife Stadium in East Rutherford, New Jersey. The top two teams from each of the twelve groups, along with the best eight third-place teams, advanced to the knockout stage to compete in a single-elimination tournament. There were 32 matches in the knockout stage, including a match for third place. | other articles: Morocco national football team, 2022 FIFA World Cup knockout stage"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_2goaKq9lpPmLB5LDgS8Fa66P",
+     "function": {
+      "name": "page_find",
+      "arguments": "{\"title\":\"2026 FIFA World Cup knockout stage\",\"keywords\":\"Morocco failed to record a shot on target\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_2goaKq9lpPmLB5LDgS8Fa66P",
+   "content": "Morocco was missing injured forward Ismael Saibari and failed to get a shot on target until the 84th minute. As a result, this was the first time it failed to advance further in the knockout stage after its surprising success in 2022 where they finished fourth."
+  },
+  {
+   "role": "assistant",
+   "content": "Morocco failed to record a shot on target until the 84th minute. \n\nFINAL: 84",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

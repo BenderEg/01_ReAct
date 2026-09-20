@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-68",
+  "source": "fresh",
+  "question": "In the England vs Ghana group stage match on June 23, 2026, who brought down Prince Kwabena Adu in the 78th minute in the controversial incident where a penalty was not awarded?",
+  "answer": "Ezri Konsa",
+  "evidence": "In the 78th minute Ghana had a potential penalty not awarded, Ezri Konsa dived in to challenge Prince Kwabena Adu in the penalty area, bringing him down without making any contact with the ball.",
+  "page": "2026 FIFA World Cup Group L",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_L#England_vs_Ghana"
+ },
+ "answer": "Let me search for information about this specific match.",
+ "correct": false,
+ "cost": 0.0008009999999999962,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the England vs Ghana group stage match on June 23, 2026, who brought down Prince Kwabena Adu in the 78th minute in the controversial incident where a penalty was not awarded?"
+  },
+  {
+   "role": "assistant",
+   "content": "Let me search for information about this specific match.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

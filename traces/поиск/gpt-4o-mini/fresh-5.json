@@ -1,0 +1,52 @@
+{
+ "task": {
+  "id": "fresh-5",
+  "source": "fresh",
+  "question": "In the Czech Republic vs Mexico World Cup 2026 group stage match, for how many FIFA World Cup squads had Guillermo Ochoa been selected?",
+  "answer": "sixth",
+  "evidence": "Guillermo Ochoa secured his sixth FIFA World Cup squad selection, joining Lionel Messi of Argentina and Cristiano Ronaldo of Portugal in achieving this historic milestone.",
+  "page": "2026 FIFA World Cup Group A",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A#Czech_Republic_vs_Mexico"
+ },
+ "answer": "Guillermo Ochoa was selected for six consecutive FIFA World Cup squads from 2006 to 2026. \n\nFINAL: 6",
+ "correct": false,
+ "cost": 0.00015269999999999867,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the Czech Republic vs Mexico World Cup 2026 group stage match, for how many FIFA World Cup squads had Guillermo Ochoa been selected?"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_Fkxc6qaaNC2Zfhfz4tlR9hEo",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Guillermo Ochoa FIFA World Cup squads history\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_Fkxc6qaaNC2Zfhfz4tlR9hEo",
+   "content": "[Guillermo Ochoa] Francisco Guillermo Ochoa Magaña (Spanish pronunciation: [ɡiˈʝeɾmo oˈtʃo.a]; born 13 July 1985), commonly known as Memo Ochoa, is a Mexican former professional footballer who played as a goalkeeper. He was a full international with the Mexico national team, which he captained, and is widely considered to be the greatest Mexican goalkeeper, and one of the best goalkeepers of all time. At club level, Ochoa made his professional debut with América in 2004, where he won the Clausura 2005 league title, the 2005 Campeón de Campeones and the 2006 CONCACAF Champions' Cup. He moved to Europe in 2011, playing for Ajaccio in France, Malaga and Granada in Spain and Standard Liège in Belgium, where he won the 2017–18 Belgian Cup. He returned to América in 2019, setting a club record for the most clean sheets, before returning to Europe with spells at Salernitana in Italy, AVS in Portugal, and AEL Limassol in Cyprus. Over his career, he made more than 750 senior club appearances. Ochoa received his first cap for Mexico at age 20 in a friendly match against Hungary. He was selected for six consecutive FIFA World Cup squads between 2006 and 2026, joining a select group of players to achieve the feat. His international career also included appearances at two FIFA Confederations Cups, two Olympic tournaments (winning a bronze medal in 2020), two Copas América, one Toulon Tournament, one CONCACAF Pre-Olympic Tournament, four CONCACAF Nations Leagues and seven CONCACAF Gold Cups. Winning six Gol | other articles: 2026 FIFA World Cup Group A, 2014 FIFA World Cup squads"
+  },
+  {
+   "role": "assistant",
+   "content": "Guillermo Ochoa was selected for six consecutive FIFA World Cup squads from 2006 to 2026. \n\nFINAL: 6",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

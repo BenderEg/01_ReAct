@@ -1,0 +1,15 @@
+{
+ "task": {
+  "id": "fresh-89",
+  "source": "fresh",
+  "question": "What anniversary of the Declaration of Independence was commemorated before the Paraguay vs France knockout stage match?",
+  "answer": "250th",
+  "evidence": "a special ceremony commemorating the 250th anniversary of the United States Declaration of Independence was held on the stadium grounds 25 minutes before kickoff",
+  "page": "2026 FIFA World Cup knockout stage",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#Paraguay_vs_France"
+ },
+ "answer": "ошибка: HTTP 429 : {\"error\":{\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\",\"code\":429,\"metadata\":{\"headers\":{\"X-RateLimit-Limit\":\"20\",\"X-RateLimit-Remaining\":\"0\",\"X-RateLimit-Reset\":\"1789904340000\"},\"limit_source\":\"openrouter_new_account\",\"remedy_hint\":\"New accounts are temporarily limited for this model. Please retry shortly.\",\"provider_name\":null,\"previous_errors\":[{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"},{\"code\":429,\"message\":\"Rate limit exceeded: new-account-rpm/anthropic/claude-4.5-haiku-20251001. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.\"}]}},\"user_id\":\"user_3JZ3QT6zcSoSiPQKukc4L75v0Uj\"}",
+ "correct": false,
+ "cost": 0.0,
+ "messages": []
+}

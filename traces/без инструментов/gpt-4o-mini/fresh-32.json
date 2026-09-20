@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-32",
+  "source": "fresh",
+  "question": "Which Tunisia manager was relieved of his duties following the group stage match against Sweden on June 14, 2026?",
+  "answer": "Sabri Lamouchi",
+  "evidence": "After the match, Tunisia manager Sabri Lamouchi was relieved from his managing duties.",
+  "page": "2026 FIFA World Cup Group F",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_F#Sweden_vs_Tunisia"
+ },
+ "answer": "I will look up the information about the Tunisia manager who was relieved of his duties after the group stage match against Sweden on June 14, 2026.",
+ "correct": false,
+ "cost": 3.8099999999999896e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "Which Tunisia manager was relieved of his duties following the group stage match against Sweden on June 14, 2026?"
+  },
+  {
+   "role": "assistant",
+   "content": "I will look up the information about the Tunisia manager who was relieved of his duties after the group stage match against Sweden on June 14, 2026.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

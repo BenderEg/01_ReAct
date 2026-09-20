@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-66",
+  "source": "fresh",
+  "question": "In the England vs Croatia group stage match, how many World Cup goals did Harry Kane have when he equalled Gary Lineker's England record?",
+  "answer": "10",
+  "evidence": "With his second goal, Kane equalled Gary Lineker 's goals record for England at the World Cup with 10 goals.",
+  "page": "2026 FIFA World Cup Group L",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_L#England_vs_Croatia"
+ },
+ "answer": "I need to look up the specific information regarding Harry Kane's goals at the 2026 FIFA World Cup. Please hold on a moment while I gather the facts.",
+ "correct": false,
+ "cost": 3.94499999999999e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the England vs Croatia group stage match, how many World Cup goals did Harry Kane have when he equalled Gary Lineker's England record?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to look up the specific information regarding Harry Kane's goals at the 2026 FIFA World Cup. Please hold on a moment while I gather the facts.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

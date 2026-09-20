@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-26",
+  "source": "fresh",
+  "question": "In which minute did Ivory Coast score their goal against Ecuador in the group stage?",
+  "answer": "90th minute",
+  "evidence": "With a goal by Amad Diallo in the 90th minute, this marked Ivory Coast's first victory against a CONMEBOL team in the FIFA World Cup since their 2–1 loss to Colombia in 2014.",
+  "page": "2026 FIFA World Cup Group E",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_E#Ivory_Coast_vs_Ecuador"
+ },
+ "answer": "I need to look up the specific information about the Ivory Coast's goal against Ecuador in the group stage of the 2026 World Cup. Please hold on for a moment. \n\nFINAL: 0",
+ "correct": false,
+ "cost": 4.1699999999999984e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In which minute did Ivory Coast score their goal against Ecuador in the group stage?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to look up the specific information about the Ivory Coast's goal against Ecuador in the group stage of the 2026 World Cup. Please hold on for a moment. \n\nFINAL: 0",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

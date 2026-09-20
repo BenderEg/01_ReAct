@@ -1,0 +1,52 @@
+{
+ "task": {
+  "id": "fresh-77",
+  "source": "fresh",
+  "question": "After his two-goal performance against Sweden in the France vs Sweden round of 16 match, how many World Cup knockout goals did Kylian Mbappé have in total?",
+  "answer": "10 goals",
+  "evidence": "With two goals, Mbappé became the all-time leading goalscorer in World Cup knockout matches with 10 goals.",
+  "page": "2026 FIFA World Cup round of 32",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_round_of_32#France_vs_Sweden"
+ },
+ "answer": "Kylian Mbappé scored a total of 22 goals in his World Cup career, including his knockout stage goals. \n\nFINAL: 22",
+ "correct": false,
+ "cost": 0.0001600500000000088,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "After his two-goal performance against Sweden in the France vs Sweden round of 16 match, how many World Cup knockout goals did Kylian Mbappé have in total?"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_xtFBJSeGFF9dARBreEnGpHWG",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Kylian Mbappé World Cup knockout goals total 2026\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_xtFBJSeGFF9dARBreEnGpHWG",
+   "content": "[Kylian Mbappé] Kylian Mbappé Lottin (born 20 December 1998) is a French professional footballer who plays as a forward for La Liga club Real Madrid and captains the France national team. Widely regarded as one of the best players in the world and one of the greatest French players of all time, he is known for his pace, dribbling, and finishing. Mbappé has scored over 400 goals in his senior career, ranking as the all-time top goalscorer for Paris Saint-Germain (256), the France national team (66), and the FIFA World Cup (22). Born in Paris and raised in Bondy, Mbappé began his senior career in 2015 with Monaco, where he won the 2016–17 Ligue 1 title, the club's first league title in 17 years. In 2017, at age 18, he signed for Paris Saint-Germain (PSG) on an eventual permanent transfer worth €180 million, making him the second-most-expensive player in the world. He won 15 trophies with PSG, including six Ligue 1 titles and four Coupes de France, and helped them reach the Champions League final in 2020. He also finished as the league's top goalscorer a record six times, and won Ligue 1 Player of the Year a record five times. In 2024, Mbappé joined Real Madrid on a free transfer. In his debut season, he scored in the UEFA Super Cup and FIFA Intercontinental Cup as Madrid won both titles. He won the European Golden Shoe in 2025. He was the top scorer in La Liga in 2025 and 2026, and in the Champions League in 2026. Mbappé made his senior debut for France in 2017. At the 2018 FIFA World Cup, he  | other articles: 2026 FIFA World Cup knockout stage, List of FIFA World Cup top goalscorers"
+  },
+  {
+   "role": "assistant",
+   "content": "Kylian Mbappé scored a total of 22 goals in his World Cup career, including his knockout stage goals. \n\nFINAL: 22",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

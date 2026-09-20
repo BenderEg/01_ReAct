@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-41",
+  "source": "fresh",
+  "question": "How many spectators attended the group stage match between New Zealand and Belgium at BC Place, Vancouver in the 2026 World Cup?",
+  "answer": "52,497",
+  "evidence": "Attendance: 52,497",
+  "page": "2026 FIFA World Cup Group G",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_G#New_Zealand_vs_Belgium"
+ },
+ "answer": "I need to look up specific information regarding the attendance at the group stage match between New Zealand and Belgium at BC Place, Vancouver during the 2026 World Cup. Please hold on for a moment. \n\nЗапрос: attendance group stage match New Zealand Belgium BC Place Vancouver 2026 World Cup.",
+ "correct": false,
+ "cost": 5.520000000000004e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "How many spectators attended the group stage match between New Zealand and Belgium at BC Place, Vancouver in the 2026 World Cup?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to look up specific information regarding the attendance at the group stage match between New Zealand and Belgium at BC Place, Vancouver during the 2026 World Cup. Please hold on for a moment. \n\nЗапрос: attendance group stage match New Zealand Belgium BC Place Vancouver 2026 World Cup.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "task": {
+  "id": "fresh-57",
+  "source": "fresh",
+  "question": "At which stadium was the Jordan vs Algeria group stage match on June 22, 2026 played?",
+  "answer": "Levi's Stadium",
+  "evidence": "Levi's Stadium , Santa Clara Attendance: 68,371",
+  "page": "2026 FIFA World Cup Group J",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_J#Jordan_vs_Algeria"
+ },
+ "answer": "The Jordan vs Algeria group stage match on June 22, 2026, was played at Lusail Stadium in Qatar. \n\nFINAL: Lusail Stadium, Qatar",
+ "correct": false,
+ "cost": 0.00028469999999999884,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "At which stadium was the Jordan vs Algeria group stage match on June 22, 2026 played?"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_DBdCB1nixefqTychWCw1BCD7",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Jordan vs Algeria group stage match June 22 2026 stadium\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_DBdCB1nixefqTychWCw1BCD7",
+   "content": "[2026 FIFA World Cup Group J] Group J of the 2026 FIFA World Cup took place from June 16 to 27, 2026. The group consisted of defending champions Argentina, Algeria, Austria, and Jordan. Argentina topped the group with three wins out of three, and Austria finished as runners-up, gaining the edge over Algeria on goal difference. Both teams thus advanced to the round of 32. In the knockout stage, Argentina defeated multiple teams but lost to Spain in the final. Algeria's four points were nonetheless sufficient enough to also qualify for the knockout stage as one of the best third-placed teams. World Cup debutants Jordan finished last with no points and were eliminated. On June 22, Lionel Messi scored his 17th World Cup goal in Argentina's win against Austria, surpassing Miroslav Klose (16) as the FIFA World Cup's all-time top goalscorer. Messi's six goals across the three group matches brought his overall tally to 19 across the six World Cups he had participated in. | other articles: 2026 FIFA World Cup Group C, 2026 FIFA World Cup knockout stage"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_Epigh9koFhDFVUG2OTI84dqu",
+     "function": {
+      "name": "page_find",
+      "arguments": "{\"title\":\"2026 FIFA World Cup Group J\",\"keywords\":\"Jordan Algeria June 22 stadium\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_Epigh9koFhDFVUG2OTI84dqu",
+   "content": "Group J of the 2026 FIFA World Cup took place from June 16 to 27, 2026. The group consisted of defending champions Argentina, Algeria, Austria, and Jordan.\nAlgeria's four points were nonetheless sufficient enough to also qualify for the knockout stage as one of the best third-placed teams. World Cup debutants Jordan finished last with no points and were eliminated.\n=== Jordan vs Algeria ===\nIn the 36th minute, Nizar Al-Rashdan scored for Jordan with a shot with the outside of his right foot low to the right corner from the right of the penalty area. Nadhir Benbouali made it 1–1 in the 69th minute with a header to the left corner of the net after corner from on the right Riyad Mahrez. Amine Gouiri got the winning goal for Algeria in the 82nd minute when he hooked the ball into the net\nThe two teams had never met before. The fixture featured two teams that had both reached finals in FIFA-organized tournaments at the Lusail Stadium in Qatar. This was the same venue where Argentina won their last World Cup on penalties against France, and Jordan competed in the 2025 FIFA Arab Cup final, losing 3–2 to Morocco."
+  },
+  {
+   "role": "assistant",
+   "content": "The Jordan vs Algeria group stage match on June 22, 2026, was played at Lusail Stadium in Qatar. \n\nFINAL: Lusail Stadium, Qatar",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

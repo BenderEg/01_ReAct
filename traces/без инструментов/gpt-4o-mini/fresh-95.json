@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-95",
+  "source": "fresh",
+  "question": "In the knockout stage match between Switzerland and Colombia on July 7, 2026, Switzerland's progression to the quarterfinals marked their first appearance in that stage in how many years?",
+  "answer": "72 years",
+  "evidence": "Switzerland reached the quarterfinals for the fourth time (after 1934, 1938, and 1954), their first in 72 years (since 1954, when it hosted the tournament).",
+  "page": "2026 FIFA World Cup knockout stage",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#Switzerland_vs_Colombia"
+ },
+ "answer": "I need to check the historical participation of Switzerland in the quarterfinals of the FIFA World Cup to answer your question accurately about their last appearance. I'll find that information now. \n\nПроверяю факты о выступлениях Швейцарии на чемпионате мира 2026 года.",
+ "correct": false,
+ "cost": 5.639999999999985e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the knockout stage match between Switzerland and Colombia on July 7, 2026, Switzerland's progression to the quarterfinals marked their first appearance in that stage in how many years?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to check the historical participation of Switzerland in the quarterfinals of the FIFA World Cup to answer your question accurately about their last appearance. I'll find that information now. \n\nПроверяю факты о выступлениях Швейцарии на чемпионате мира 2026 года.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

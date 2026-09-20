@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-16",
+  "source": "fresh",
+  "question": "In their group stage match against Brazil, Haiti became the first team eliminated from the 2026 World Cup after losing how many consecutive matches?",
+  "answer": "two",
+  "evidence": "With this result, Haiti became the first team eliminated from the tournament after losing two consecutive matches.",
+  "page": "2026 FIFA World Cup Group C",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_C#Brazil_vs_Haiti"
+ },
+ "answer": "I will look up the information about Haiti's consecutive matches in the group stage of the 2026 World Cup. \n\nSearching for: \"Haiti first team eliminated 2026 World Cup consecutive matches\".",
+ "correct": false,
+ "cost": 4.410000000000004e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In their group stage match against Brazil, Haiti became the first team eliminated from the 2026 World Cup after losing how many consecutive matches?"
+  },
+  {
+   "role": "assistant",
+   "content": "I will look up the information about Haiti's consecutive matches in the group stage of the 2026 World Cup. \n\nSearching for: \"Haiti first team eliminated 2026 World Cup consecutive matches\".",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

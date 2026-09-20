@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-89",
+  "source": "fresh",
+  "question": "What anniversary of the Declaration of Independence was commemorated before the Paraguay vs France knockout stage match?",
+  "answer": "250th",
+  "evidence": "a special ceremony commemorating the 250th anniversary of the United States Declaration of Independence was held on the stadium grounds 25 minutes before kickoff",
+  "page": "2026 FIFA World Cup knockout stage",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#Paraguay_vs_France"
+ },
+ "answer": "Для определения, какое число годовщины Декларации независимости США было отмечено перед матчем Парагвай против Франции на чемпионате мира 2026 года, мне нужно проверить детали о проведении этого матча. \n\nДайте мне немного времени, чтобы найти нужную информацию.",
+ "correct": false,
+ "cost": 5.475000000000011e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "What anniversary of the Declaration of Independence was commemorated before the Paraguay vs France knockout stage match?"
+  },
+  {
+   "role": "assistant",
+   "content": "Для определения, какое число годовщины Декларации независимости США было отмечено перед матчем Парагвай против Франции на чемпионате мира 2026 года, мне нужно проверить детали о проведении этого матча. \n\nДайте мне немного времени, чтобы найти нужную информацию.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

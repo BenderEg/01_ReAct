@@ -1,0 +1,52 @@
+{
+ "task": {
+  "id": "fresh-56",
+  "source": "fresh",
+  "question": "In the group stage match between Argentina and Austria on June 22, 2026, whose World Cup goalscoring record did Lionel Messi surpass?",
+  "answer": "Miroslav Klose",
+  "evidence": "In scoring both of Argentina's goals, Messi surpassed Miroslav Klose to become the all-time leading World Cup goalscorer with 18 goals.",
+  "page": "2026 FIFA World Cup Group J",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_J#Argentina_vs_Austria"
+ },
+ "answer": "Lionel Messi surpassed the World Cup goalscoring record previously held by Miroslav Klose, who scored 16 goals. \n\nFINAL: Miroslav Klose",
+ "correct": true,
+ "cost": 0.00015689999999999454,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "In the group stage match between Argentina and Austria on June 22, 2026, whose World Cup goalscoring record did Lionel Messi surpass?"
+  },
+  {
+   "role": "assistant",
+   "content": null,
+   "refusal": null,
+   "reasoning": null,
+   "tool_calls": [
+    {
+     "type": "function",
+     "index": 0,
+     "id": "call_0hawQheReqnH3SJcEsmXBfZo",
+     "function": {
+      "name": "web_search",
+      "arguments": "{\"query\":\"Argentina Austria June 22 2026 World Cup Messi goalscoring record surpassed\"}"
+     }
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_0hawQheReqnH3SJcEsmXBfZo",
+   "content": "[List of FIFA World Cup top goalscorers] Players have scored more than 3,000 goals in the 23 men's FIFA World Cup tournaments, the goal record includes own goals scored, but not counting penalty shoot-outs. Since the first goal, by French player Lucien Laurent in 1930, nearly 1,300 footballers have scored goals at the World Cup tournaments, of whom 111 have scored five or more. The top goalscorer of the inaugural competition was Argentina's Guillermo Stábile, with eight goals. Since then, only 28 players have scored more World Cup goals in total than Stábile did during the 1930 tournament. The first to do so was Brazil's Ademir in 1950, with nine goals. This was followed by Hungary's Sándor Kocsis scoring eleven in 1954. At the 1958 tournament, France's Just Fontaine further improved on this record, recording thirteen goals in just six matches. Gerd Müller then scored ten goals for West Germany in 1970, before breaking the overall record when he scored his fourteenth World Cup goal during West Germany's win in the 1974 final. Müller's record stood for more than three decades, until Ronaldo recorded fifteen goals between 1998 and 2006 for Brazil. Germany's Miroslav Klose broke Ronaldo's record with his 16th goal in 2014; his record stood until Argentina's Lionel Messi scored his 17th through 21st goals in 2026. At the same World Cup, France's Kylian Mbappé became the current record holder after scoring his 22nd goal. Of all the players who have played at the World Cup, only six have achieved an average of two goals o | other articles: Career of Lionel Messi, List of career achievements by Lionel Messi"
+  },
+  {
+   "role": "assistant",
+   "content": "Lionel Messi surpassed the World Cup goalscoring record previously held by Miroslav Klose, who scored 16 goals. \n\nFINAL: Miroslav Klose",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}

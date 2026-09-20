@@ -1,0 +1,30 @@
+{
+ "task": {
+  "id": "fresh-73",
+  "source": "fresh",
+  "question": "What was the attendance at the Brazil vs Japan Round of 16 match on June 29, 2026?",
+  "answer": "68,777",
+  "evidence": "Attendance: 68,777",
+  "page": "2026 FIFA World Cup round of 32",
+  "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_round_of_32#Brazil_vs_Japan"
+ },
+ "answer": "I need to look up the attendance for the Brazil vs Japan Round of 16 match on June 29, 2026. Please hold on. \n\nSEARCH: \"Brazil vs Japan Round of 16 match attendance June 29 2026\" \n\nI will provide the information shortly.",
+ "correct": false,
+ "cost": 5.3549999999999865e-05,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Ты отвечаешь на вопросы про чемпионат мира 2026 года.Если нужно найти факт, вызывай инструменты, а не угадывай. Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 годаКогда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза."
+  },
+  {
+   "role": "user",
+   "content": "What was the attendance at the Brazil vs Japan Round of 16 match on June 29, 2026?"
+  },
+  {
+   "role": "assistant",
+   "content": "I need to look up the attendance for the Brazil vs Japan Round of 16 match on June 29, 2026. Please hold on. \n\nSEARCH: \"Brazil vs Japan Round of 16 match attendance June 29 2026\" \n\nI will provide the information shortly.",
+   "refusal": null,
+   "reasoning": null
+  }
+ ]
+}
