@@ -20,15 +20,15 @@ class FakeWiki:
     """Подмена main.wiki: отдаёт заготовленные ответы и помнит, о чём её спросили.
 
     search — хиты для action=query&list=search;
-    extract — полный текст страницы (None = страницы без поля extract, как у Википедии
-    для несуществующего заголовка);
+    html — HTML страницы для action=parse (None = страницы нет: настоящая wiki()
+    в этом случае возвращает {});
     error — если задан, любой вызов падает с этим исключением.
     """
 
     def __init__(self, search: list[dict[str, str]] | None = None,
-                 extract: str | None = None, error: Exception | None = None) -> None:
+                 html: str | None = None, error: Exception | None = None) -> None:
         self.search = search if search is not None else []
-        self.extract = extract
+        self.html = html
         self.error = error
         self.calls: list[Params] = []
 
@@ -38,10 +38,7 @@ class FakeWiki:
             raise self.error
         if params.get("list") == "search":
             return {"search": self.search}
-        page: dict[str, Any] = {"pageid": 1, "title": params.get("titles", "")}
-        if self.extract is not None:
-            page["extract"] = self.extract
-        return {"pages": {"1": page}}
+        return {} if self.html is None else {"title": params.get("page", ""), "text": self.html}
 
 
 InstallWiki = Callable[..., FakeWiki]

@@ -6,6 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pydantic import BaseModel, Field
 
+from utils.wiki_text import html_lines
+
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -78,13 +80,26 @@ def chat(messages: list[dict], model: str, tools: list[dict] | None = None, tag=
 WIKI = "https://en.wikipedia.org/w/api.php"
 WIKI_HEADERS = {"User-Agent": "agents-course-seminar01/1.0 (https://postypashki.ru; educational project)"}
 
-def wiki(params: dict, attempts: int = 3):
+def wiki(params: dict, attempts: int = 3) -> dict:
+    """Ответ Википедии для params["action"] (query или parse); {} если страницы нет."""
     for attempt in range(attempts):
         r = requests.get(WIKI, params={**params, "format": "json"}, headers=WIKI_HEADERS, timeout=15)
         if r.status_code == 200 and r.headers.get("content-type", "").startswith("application/json"):
-            return r.json()["query"]
+            data = r.json()
+            if "error" in data:
+                if data["error"].get("code") == "missingtitle":
+                    return {}
+                raise RuntimeError(f"Википедия: {data['error'].get('info')}")
+            return data[params["action"]]
         time.sleep(1.0 + attempt)
     raise RuntimeError(f"Википедия ответила {r.status_code}")
+
+def page_html(title: str, intro: bool = False) -> str:
+    """HTML статьи после парсера, с шаблонами (footballbox, инфобоксы); intro=True — только вводная секция."""
+    params = {"action": "parse", "page": title, "prop": "text", "redirects": 1, "formatversion": 2}
+    if intro:
+        params["section"] = 0
+    return wiki(params).get("text", "")
 
 class SearchArgs(BaseModel):
     query: str = Field(description="короткий поисковый запрос: имя, название, термин")
@@ -100,21 +115,20 @@ def web_search(query):
     hits = wiki({"action": "query", "list": "search", "srsearch": query, "srlimit": 3})["search"]
     if not hits:
         return "nothing found"
-    pages = wiki({"action": "query", "prop": "extracts", "explaintext": 1, "exintro": 1, "titles": hits[0]["title"]})["pages"]
-    text = " ".join(next(iter(pages.values())).get("extract", "").split())[:1500]
+    text = " ".join(html_lines(page_html(hits[0]["title"], intro=True)))[:1500]
     others = ", ".join(h["title"] for h in hits[1:])
     return f"[{hits[0]['title']}] {text}" + (f" | other articles: {others}" if others else "")
 
 def page_find(title, keywords):
-    """Строки полного текста статьи, где встречается хотя бы половина ключевых слов."""
-    
-    pages = wiki({"action": "query", "prop": "extracts", "explaintext": 1, "titles": title, "redirects": 1})["pages"]
-    text = next(iter(pages.values())).get("extract", "")
-    if not text:
+    """Строки статьи (предложения, строки таблиц, карточки матчей footballbox), где встречается
+    хотя бы половина ключевых слов; сначала строки с наибольшим числом совпадений."""
+    html = page_html(title)
+    if not html:
         return "no such page"
     words = [w for w in re.findall(r"\w+", keywords.lower()) if len(w) > 2]
-    lines = [l.strip() for l in text.splitlines() if l.strip()]
-    hits = [l for l in lines if sum(w in l.lower() for w in words) >= max(1, (len(words) + 1) // 2)]
+    need = max(1, (len(words) + 1) // 2)
+    scored = [(sum(w in l.lower() for w in words), l) for l in html_lines(html)]
+    hits = [l for s, l in sorted(scored, key=lambda p: -p[0]) if s >= need]
     return "\n".join(h[:400] for h in hits[:6]) or "keywords not found on the page"
 
 TOOLS = {
