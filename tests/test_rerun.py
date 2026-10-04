@@ -65,3 +65,5 @@ def test_rerun_comparison_before_after_and_merged(asked: list[str]) -> None:
     row = merged.iloc[0]
     assert (row["n"], row["old_correct"], row["fixed"]) == (4, 2, 2)
     assert (row["accuracy_before"], row["accuracy_merged"]) == (0.5, 1.0)
+    assert row["cost_per_task"] == pytest.approx((2 * 0.002 + 2 * 0.01) / 4)
+    assert row["cost_per_correct"] == pytest.approx((2 * 0.002 + 2 * 0.01) / 4)

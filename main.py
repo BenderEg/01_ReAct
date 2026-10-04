@@ -373,9 +373,14 @@ def rerun_comparison(levels: list[str], config_names: list[str]) -> tuple[pd.Dat
                 rows.append(summary(f"{name}, {label}", model, len(df), int(df["correct"].sum()),
                                     df["cost"].sum(), df["steps"].mean(), df["seconds"].mean()))
             kept, fixed = int(old["correct"].sum()), int(redo["correct"].sum())
+            # как будто один прогон после правок: старые верные строки плюс повтор всех остальных
+            combined = pd.concat([old[~old["id"].isin(redo["id"])], redo], ignore_index=True)
             merged.append({"config": name, "model": model.split("/")[-1], "n": len(old), "old_correct": kept,
                            "fixed": fixed, "accuracy_before": round(kept / len(old), 2),
-                           "accuracy_merged": round((kept + fixed) / len(old), 2)})
+                           "accuracy_merged": round((kept + fixed) / len(old), 2),
+                           "cost_per_task": round(combined["cost"].sum() / len(combined), 5),
+                           "cost_per_correct": round(combined["cost"].sum() / (kept + fixed), 5) if kept + fixed else float("inf"),
+                           "avg_steps": round(combined["steps"].mean(), 2)})
     return pd.DataFrame(rows), pd.DataFrame(merged)
 
 def rerun_report(levels: list[str], config_names: list[str], path: str = "img/money_quality_rerun.png") -> None:
