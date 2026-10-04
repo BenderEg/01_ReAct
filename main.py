@@ -1,4 +1,4 @@
-import os, re, json, time, argparse
+import os, re, json, time, argparse, contextlib
 from pathlib import Path
 from dataclasses import dataclass, field
 import requests
@@ -56,15 +56,72 @@ class Ledger:
 ledger = Ledger()
 
 
-def post_with_retry(body, attempts=3):
+class Throttle:
+    """Не чаще rpm запросов в минуту к одной модели (новый аккаунт OpenRouter: 20 в минуту на модель)."""
+
+    def __init__(self, rpm: float | None = None) -> None:
+        self.rpm = rpm
+        self.last: dict[str, float] = {}
+
+    def wait(self, model: str) -> None:
+        if not self.rpm:
+            return
+        gap = 60 / self.rpm - (time.monotonic() - self.last.get(model, float("-inf")))
+        if gap > 0:
+            time.sleep(gap)
+        self.last[model] = time.monotonic()
+
+throttle = Throttle()
+
+RETRY_STATUSES = (429, 500, 502, 503, 504)
+MAX_WAIT = 65.0  # окно лимита OpenRouter — минута, плюс запас
+
+
+def rate_limit_reset(r: requests.Response) -> float | None:
+    """Момент снятия лимита (epoch, секунды): заголовок X-RateLimit-Reset или он же в теле 429 от OpenRouter."""
+    reset = r.headers.get("X-RateLimit-Reset")
+    if reset is None:
+        with contextlib.suppress(ValueError, KeyError, TypeError):
+            reset = r.json()["error"]["metadata"]["headers"]["X-RateLimit-Reset"]
+    with contextlib.suppress(ValueError, TypeError):
+        return float(reset) / 1000  # OpenRouter отдаёт миллисекунды
+    return None
+
+
+def retry_delay(r: requests.Response | None, attempt: int) -> float:
+    """Сколько ждать перед повтором: Retry-After, затем X-RateLimit-Reset, иначе экспонента."""
+    if r is not None:
+        retry_after = r.headers.get("Retry-After")
+        if retry_after is not None:
+            with contextlib.suppress(ValueError):
+                return min(MAX_WAIT, max(1.0, float(retry_after)))
+        reset = rate_limit_reset(r)
+        if reset is not None:
+            return min(MAX_WAIT, max(1.0, reset - time.time() + 1))
+    return min(60.0, 3.0 * 2 ** attempt)
+
+
+def post_with_retry(body: dict, attempts: int = 6) -> dict:
+    """POST к OpenRouter; при 429/5xx и сетевых ошибках ждёт столько, сколько просит сервер."""
+    error = "нет попыток"
     for attempt in range(attempts):
-        r = requests.post(CHAT_URL, json=body, headers=HEADERS, timeout=120)
-        if r.status_code == 200:
-            return r.json()
-        if r.status_code in (429, 500, 502, 503) and attempt < attempts - 1:
-            time.sleep(1.5 * (attempt+1))
-            continue
-        raise RuntimeError(f"HTTP {r.status_code} : {r.text[:5000]}")
+        throttle.wait(body["model"])
+        r = None
+        try:
+            r = requests.post(CHAT_URL, json=body, headers=HEADERS, timeout=120)
+        except requests.RequestException as e:
+            label, error = type(e).__name__, f"сеть: {type(e).__name__}: {e}"
+        else:
+            if r.status_code == 200:
+                return r.json()
+            label, error = f"HTTP {r.status_code}", f"HTTP {r.status_code} : {r.text[:5000]}"
+            if r.status_code not in RETRY_STATUSES:
+                break
+        if attempt < attempts - 1:
+            delay = retry_delay(r, attempt)
+            print(f"  {label}, жду {delay:.1f} c (попытка {attempt + 2}/{attempts})", flush=True)
+            time.sleep(delay)
+    raise RuntimeError(error)
 
 def chat(messages: list[dict], model: str, tools: list[dict] | None = None, tag="chat", temperature=None):
     body = {"model": model, "messages": messages, "usage": {"include": True}}
@@ -232,13 +289,45 @@ def run_experiment(levels: list[str], config_names: list[str], limit: int | None
     results.to_csv(RESULTS / "all_runs.csv", index=False, encoding="utf-8")
     return results
 
+def rebuild_all_runs() -> pd.DataFrame:
+    """Собрать results/all_runs.csv заново из всех results/<конфиг>__<уровень>.csv."""
+    results = pd.concat([pd.read_csv(p, encoding="utf-8") for p in sorted(RESULTS.glob("*__*.csv"))],
+                        ignore_index=True)
+    results.to_csv(RESULTS / "all_runs.csv", index=False, encoding="utf-8")
+    return results
+
+def retry_errors(levels: list[str], config_names: list[str]) -> pd.DataFrame:
+    """Перезапустить только упавшие задачи (ответ «ошибка: ...») в сохранённых прогонах.
+
+    Строки с ошибкой в results/<конфиг>__<уровень>.csv заменяются новыми, трейсы перезаписывает run_tasks.
+    """
+    tasks = {t["id"]: t for t in load_tasks()}
+    for name in config_names:
+        for level in levels:
+            csv_path = RESULTS / f"{name}__{level}.csv"
+            if not csv_path.exists():
+                print(f"{csv_path.name}: нет прогона, пропускаю", flush=True)
+                continue
+            df = pd.read_csv(csv_path, encoding="utf-8")
+            failed = df.loc[df["answer"].astype(str).str.startswith(ERROR_PREFIX), "id"].tolist()
+            print(f"{csv_path.name}: перезапуск {len(failed)} упавших", flush=True)
+            if not failed:
+                continue
+            redo = run_tasks([tasks[i] for i in failed], MODELS[level], CONFIGS[name], name)
+            order = {task_id: n for n, task_id in enumerate(df["id"])}
+            df = (pd.concat([df[~df["id"].isin(failed)], redo], ignore_index=True)
+                  .sort_values("id", key=lambda ids: ids.map(order)).reset_index(drop=True))
+            df.to_csv(csv_path, index=False, encoding="utf-8")
+            print(f"  верно {int(df['correct'].sum())}/{len(df)}, "
+                  f"ещё с ошибкой {int(df['answer'].astype(str).str.startswith(ERROR_PREFIX).sum())}", flush=True)
+    return rebuild_all_runs()
+
 def rescore() -> pd.DataFrame:
     """Переоценить сохранённые прогоны текущим is_correct без вызовов модели.
 
     Берёт каждую results/<конфиг>__<уровень>.csv, для каждой строки читает полный ответ из
     трейса, пишет новый correct и в CSV, и в трейс, пересобирает results/all_runs.csv.
     """
-    frames = []
     for csv_path in sorted(RESULTS.glob("*__*.csv")):
         df = pd.read_csv(csv_path, encoding="utf-8")
         for idx, row in df.iterrows():
@@ -253,10 +342,7 @@ def rescore() -> pd.DataFrame:
             df.at[idx, "correct"] = ok
         df.to_csv(csv_path, index=False, encoding="utf-8")
         print(f"{csv_path.name}: верно {int(df['correct'].sum())}/{len(df)}", flush=True)
-        frames.append(df)
-    results = pd.concat(frames, ignore_index=True)
-    results.to_csv(RESULTS / "all_runs.csv", index=False, encoding="utf-8")
-    return results
+    return rebuild_all_runs()
 
 def money_chart(table, path="img/money_quality.png"):
     fig, ax = plt.subplots(figsize=(8, 5))
@@ -279,13 +365,19 @@ if __name__ == "__main__":
     parser.add_argument("--limit", type=int, default=None, help="взять только первые N вопросов")
     parser.add_argument("--rescore", action="store_true",
                         help="не звать модели, а переоценить сохранённые трейсы текущим is_correct")
+    parser.add_argument("--retry-errors", action="store_true",
+                        help="перезапустить только задачи, упавшие с ошибкой (например HTTP 429), в сохранённых прогонах")
+    parser.add_argument("--rpm", type=float, default=None,
+                        help="не больше N запросов в минуту к одной модели (новый аккаунт OpenRouter: 20)")
     args = parser.parse_args()
+    throttle.rpm = args.rpm
 
     if args.rescore:
         print(report(rescore()).to_string(index=False))
         raise SystemExit(0)
 
-    results = run_experiment(args.levels, args.configs, limit=args.limit)
+    results = (retry_errors(args.levels, args.configs) if args.retry_errors
+               else run_experiment(args.levels, args.configs, limit=args.limit))
     table = report(results)
     print(table.to_string(index=False))
 
