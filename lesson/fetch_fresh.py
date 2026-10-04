@@ -17,6 +17,8 @@ from pydantic import BaseModel, Field, ValidationError
 
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))  # корень репозитория: при запуске из lesson/ иначе не виден utils
+from utils.wiki_tools import TOOLS, call_tool, wiki  # noqa: E402
 for env in [HERE / ".env", HERE.parent.parent / "demo" / ".env", HERE.parent / ".env"]:
     if env.exists():
         for line in env.read_text(encoding="utf-8").splitlines():
@@ -27,8 +29,6 @@ assert os.getenv("OPENROUTER_API_KEY"), "нужен OPENROUTER_API_KEY"
 CHAT_URL = "https://openrouter.ai/api/v1/chat/completions"
 HEADERS = {"Authorization": f"Bearer {os.environ['OPENROUTER_API_KEY']}", "X-Title": "agents-course-fresh-dataset"}
 CHEAP, STRONG = "openai/gpt-4o-mini", "anthropic/claude-sonnet-4.6"
-WIKI = "https://en.wikipedia.org/w/api.php"
-WIKI_HEADERS = {"User-Agent": "agents-course-seminar01/1.0 (https://postypashki.ru; educational project)"}
 PAGES = ["2026", "2026 in science", "2026 in sports", "2026 in film", "2026 in spaceflight", "2026 in video games",
          "2026 in music", "2026 in television", "2026 in literature", "2026 Winter Olympics", "2026 FIFA World Cup",
          "2026 in aviation", "2026 in politics", "2026 in the United States", "2026 in the United Kingdom",
@@ -73,18 +73,6 @@ def post(body, attempts=5):
 def chat(messages, model, temperature=0):
     data = post({"model": model, "messages": messages, "temperature": temperature, "usage": {"include": True}})
     return data["choices"][0]["message"]["content"] or ""
-
-
-def wiki(params):
-    for attempt in range(3):
-        try:
-            r = requests.get(WIKI, params={**params, "format": "json"}, headers=WIKI_HEADERS, timeout=20)
-            if r.status_code == 200 and r.headers.get("content-type", "").startswith("application/json"):
-                return r.json()["query"]
-        except requests.RequestException:
-            pass
-        time.sleep(2 * (attempt + 1))
-    raise RuntimeError("Википедия недоступна")
 
 
 def page_text(title):
@@ -175,39 +163,6 @@ def strong_answer(question):
     return "unknown"
 
 
-def web_search(query):
-    hits = wiki({"action": "query", "list": "search", "srsearch": query, "srlimit": 3})["search"]
-    if not hits:
-        return "nothing found"
-    pages = wiki({"action": "query", "prop": "extracts", "explaintext": 1, "exintro": 1, "titles": hits[0]["title"]})["pages"]
-    text = " ".join(next(iter(pages.values())).get("extract", "").split())[:1500]
-    others = ", ".join(h["title"] for h in hits[1:])
-    return f"[{hits[0]['title']}] {text}" + (f" | other articles: {others}" if others else "")
-
-
-def page_find(title, keywords):
-    """Строки полного текста статьи, где встречается хотя бы половина ключевых слов."""
-    pages = wiki({"action": "query", "prop": "extracts", "explaintext": 1, "titles": title, "redirects": 1})["pages"]
-    text = next(iter(pages.values())).get("extract", "")
-    if not text:
-        return "no such page"
-    words = [w for w in re.findall(r"\w+", keywords.lower()) if len(w) > 2]
-    lines = [l.strip() for l in text.splitlines() if l.strip()]
-    hits = [l for l in lines if sum(w in l.lower() for w in words) >= max(1, (len(words) + 1) // 2)]
-    return "\n".join(h[:400] for h in hits[:6]) or "keywords not found on the page"
-
-
-TOOLS = {
-    "web_search": (lambda a: web_search(a["query"]), {"type": "function", "function": {
-        "name": "web_search", "description": "Searches English Wikipedia and returns the intro of the best article and the titles of two more",
-        "parameters": {"type": "object", "properties": {"query": {"type": "string", "description": "short query: a name, a title, a term"}},
-                       "required": ["query"]}}}),
-    "page_find": (lambda a: page_find(a["title"], a["keywords"]), {"type": "function", "function": {
-        "name": "page_find", "description": "Looks inside the full text of a Wikipedia article (for example '2026 in Japan') and returns the lines containing the keywords",
-        "parameters": {"type": "object", "properties": {"title": {"type": "string", "description": "exact article title"},
-                                                        "keywords": {"type": "string", "description": "two to five keywords from the question"}},
-                       "required": ["title", "keywords"]}}}),
-}
 AGENT_SYSTEM = ("You answer questions about events of 2026. Never answer from memory: use web_search to find the right article, "
                 "then page_find to look inside long articles such as '2026 in <country or field>' for the specific fact. "
                 "Do not repeat the same call. When done, write the last line as FINAL: <short answer>.")
@@ -216,7 +171,7 @@ AGENT_SYSTEM = ("You answer questions about events of 2026. Never answer from me
 def agent_answer(question, max_steps=7):
     messages = [{"role": "system", "content": AGENT_SYSTEM}, {"role": "user", "content": question}]
     seen = set()
-    schemas = [t[1] for t in TOOLS.values()]
+    schemas = [t["schema"] for t in TOOLS.values()]
     for _ in range(max_steps):
         try:
             data = post({"model": CHEAP, "messages": messages, "tools": schemas, "temperature": 0, "usage": {"include": True}})
@@ -234,7 +189,7 @@ def agent_answer(question, max_steps=7):
                 return ""
             seen.add(key)
             try:
-                result = TOOLS[key[0]][0](json.loads(key[1]))
+                result = call_tool(*key)
             except Exception as e:
                 result = f"tool error: {e}"
             messages.append({"role": "tool", "tool_call_id": c["id"], "content": str(result)[:2500]})

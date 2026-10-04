@@ -35,6 +35,7 @@ cp .env.example .env   # и заполнить ключ
 | [utils/](utils/) | вся логика: сбор ссылок, описаний, генерация и оценка викторины |
 | [data/](data/) | датасеты на всех стадиях сборки |
 | [main.py](main.py) | агентный цикл и прогон эксперимента |
+| [utils/wiki_tools.py](utils/wiki_tools.py) | инструменты агента `web_search` и `page_find`, общие для `main.py` и `lesson/fetch_fresh.py` |
 | [tests/](tests/) | тесты инструментов агента |
 | [traces/](traces/) | пошаговые трейсы каждого вопроса |
 | [report.md](report.md) | вывод эксперимента |
@@ -58,10 +59,10 @@ uv run pytest tests/test_tools.py::test_web_search_returns_intro_and_other_title
 `tests/`, корень репозитория добавлен в `pythonpath`, поэтому `import main` работает без
 установки пакета.
 
-Покрыты инструменты агента — `web_search` и `page_find`
+Покрыты инструменты агента из [utils/wiki_tools.py](utils/wiki_tools.py) — `web_search` и `page_find`
 ([tests/test_tools.py](tests/test_tools.py)), для каждого три случая: нормальный вход,
 пустой результат, ошибка. Плюс `run_tool` — как ошибку инструмента видит агент. Сеть не
-задействована: единственная точка выхода наружу, `wiki()`, подменяется фикстурой
+задействована: единственная точка выхода наружу, `wiki_tools.wiki()`, подменяется фикстурой
 `install_wiki` из [tests/conftest.py](tests/conftest.py); она же выставляет тестовый
 `OPENROUTER_API_KEY` до импорта `main`, так что тесты идут без `.env` и без ключа.
 
@@ -181,7 +182,7 @@ claude -p --system-prompt <SYSTEM_PROMPT> --output-format json
 
 - вопросы и ответы на английском — так же, как статьи-источники;
 - ответ засчитывается, если нормализованный эталон входит **подстрокой** в ответ модели
-  (`is_correct` в [main.py:209](main.py#L209), `graded` в
+  (`is_correct` в [main.py:159](main.py#L159), `graded` в
   [utils/evaluate_quiz.py](utils/evaluate_quiz.py)); отсюда и требование к короткому
   ответу в промпте — длинный эталон таким способом не проверить.
 
@@ -191,7 +192,8 @@ claude -p --system-prompt <SYSTEM_PROMPT> --output-format json
 uv run python main.py --levels cheap --configs "поиск и чтение страницы" --limit 10
 ```
 
-[main.py](main.py) гоняет вопросы через ReAct-цикл. Инструменты поверх Wikipedia API:
+[main.py](main.py) гоняет вопросы через ReAct-цикл. Инструменты поверх Wikipedia API
+(в [utils/wiki_tools.py](utils/wiki_tools.py), их же использует `lesson/fetch_fresh.py`):
 `web_search` (интро лучшей статьи и заголовки ещё двух) и `page_find` (строки полного
 текста статьи с ключевыми словами). Оба читают не `prop=extracts` (там только проза), а
 HTML после парсера (`action=parse`), разобранный в [utils/wiki_text.py](utils/wiki_text.py):
@@ -231,7 +233,7 @@ uv run python evaluate_match_quiz.py --concurrency 5
 | поиск и чтение страницы | claude-haiku-4.5 | 104 | 0.31 | 0.01374 | 0.04465 | 5.22 | 14.7 |
 
 Те же пять прогонов на плоскости «цена — качество» (`money_chart` в
-[main.py:280](main.py#L280), ось цены логарифмическая):
+[main.py:229](main.py#L229), ось цены логарифмическая):
 
 ![цена задачи против доли верных ответов](img/money_quality.png)
 

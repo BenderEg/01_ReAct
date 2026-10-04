@@ -1,6 +1,6 @@
 """Тесты инструментов агента: web_search, page_find, обёртка run_tool и разбор HTML.
 
-Сеть не трогаем: в main подменяется wiki() — единственная точка выхода наружу.
+Сеть не трогаем: в utils.wiki_tools подменяется wiki() — единственная точка выхода наружу.
 Для каждого инструмента проверяются нормальный вход, пустой результат и ошибка.
 """
 
@@ -10,6 +10,7 @@ from typing import Any
 import pytest
 
 import main
+from utils import wiki_tools
 from utils.wiki_text import html_lines
 
 from conftest import InstallWiki
@@ -28,7 +29,7 @@ def tool_call(name: str, arguments: dict[str, object], call_id: str = "c1") -> d
 def test_web_search_returns_intro_and_other_titles(install_wiki: InstallWiki) -> None:
     fake = install_wiki(search=HITS, html="<p>Intro</p>\n<p>  text</p>")
 
-    result = main.web_search("mexico")
+    result = wiki_tools.web_search("mexico")
 
     assert result == "[A] Intro text | other articles: B, C"
     assert len(fake.calls) == 2
@@ -41,13 +42,13 @@ def test_web_search_returns_intro_and_other_titles(install_wiki: InstallWiki) ->
 def test_web_search_single_hit_has_no_other_articles(install_wiki: InstallWiki) -> None:
     install_wiki(search=[{"title": "A"}], html="<p>Intro text</p>")
 
-    assert main.web_search("mexico") == "[A] Intro text"
+    assert wiki_tools.web_search("mexico") == "[A] Intro text"
 
 
 def test_web_search_truncates_long_intro(install_wiki: InstallWiki) -> None:
     install_wiki(search=[{"title": "A"}], html="<p>" + "x" * 2000 + "</p>")
 
-    result = main.web_search("mexico")
+    result = wiki_tools.web_search("mexico")
 
     assert result == "[A] " + "x" * 1500
 
@@ -57,14 +58,14 @@ def test_web_search_truncates_long_intro(install_wiki: InstallWiki) -> None:
 def test_web_search_without_hits_skips_second_request(install_wiki: InstallWiki) -> None:
     fake = install_wiki(search=[])
 
-    assert main.web_search("несуществующий запрос") == "nothing found"
+    assert wiki_tools.web_search("несуществующий запрос") == "nothing found"
     assert len(fake.calls) == 1, "за текстом страницы ходить незачем"
 
 
 def test_web_search_survives_missing_page(install_wiki: InstallWiki) -> None:
     install_wiki(search=[{"title": "A"}], html=None)
 
-    assert main.web_search("mexico") == "[A] "
+    assert wiki_tools.web_search("mexico") == "[A] "
 
 
 # --- web_search: ошибка ----------------------------------------------------------
@@ -73,7 +74,7 @@ def test_web_search_propagates_wiki_error(install_wiki: InstallWiki) -> None:
     install_wiki(error=RuntimeError("Википедия ответила 503"))
 
     with pytest.raises(RuntimeError, match="503"):
-        main.web_search("mexico")
+        wiki_tools.web_search("mexico")
 
 
 # --- page_find: нормальный вход --------------------------------------------------
@@ -101,7 +102,7 @@ FOOTBALLBOX_LINE = ("June 24, 2026 Scotland 0–3 Brazil Hard Rock Stadium, Miam
 def test_page_find_keeps_lines_with_half_of_the_keywords(install_wiki: InstallWiki) -> None:
     fake = install_wiki(html=PAGE)
 
-    result = main.page_find("2026 FIFA World Cup", "goals scored stadium final")
+    result = wiki_tools.page_find("2026 FIFA World Cup", "goals scored stadium final")
 
     assert result.splitlines() == [
         "Mexico scored three goals in the final.",
@@ -115,13 +116,13 @@ def test_page_find_keeps_lines_with_half_of_the_keywords(install_wiki: InstallWi
 def test_page_find_reads_footballbox(install_wiki: InstallWiki) -> None:
     install_wiki(html=FOOTBALLBOX)
 
-    assert main.page_find("T", "Scotland Brazil attendance") == FOOTBALLBOX_LINE
+    assert wiki_tools.page_find("T", "Scotland Brazil attendance") == FOOTBALLBOX_LINE
 
 
 def test_page_find_ranks_lines_by_matched_keywords(install_wiki: InstallWiki) -> None:
     install_wiki(html="<p>Scotland and Brazil met in 1998.</p>" + FOOTBALLBOX)
 
-    result = main.page_find("T", "Scotland Brazil attendance")
+    result = wiki_tools.page_find("T", "Scotland Brazil attendance")
 
     assert result.splitlines() == [FOOTBALLBOX_LINE, "Scotland and Brazil met in 1998."], \
         "строка со всеми тремя словами идёт раньше строки с двумя"
@@ -131,19 +132,19 @@ def test_page_find_ignores_short_keywords(install_wiki: InstallWiki) -> None:
     install_wiki(html="<p>Mexico scored twice.</p><p>Nothing relevant.</p>")
 
     # из "a of goals scored" остаются два слова, порог опускается до одного совпадения
-    assert main.page_find("T", "a of goals scored") == "Mexico scored twice."
+    assert wiki_tools.page_find("T", "a of goals scored") == "Mexico scored twice."
 
 
 def test_page_find_returns_at_most_six_lines(install_wiki: InstallWiki) -> None:
     install_wiki(html="<ul>" + "".join(f"<li>goals line {i}</li>" for i in range(10)) + "</ul>")
 
-    assert len(main.page_find("T", "goals").splitlines()) == 6
+    assert len(wiki_tools.page_find("T", "goals").splitlines()) == 6
 
 
 def test_page_find_truncates_long_line(install_wiki: InstallWiki) -> None:
     install_wiki(html="<p>goals " + "y" * 600 + "</p>")
 
-    assert len(main.page_find("T", "goals")) == 400
+    assert len(wiki_tools.page_find("T", "goals")) == 400
 
 
 # --- page_find: пустой результат -------------------------------------------------
@@ -153,19 +154,19 @@ def test_page_find_without_text_reports_missing_page(install_wiki: InstallWiki,
                                                      html: str | None) -> None:
     install_wiki(html=html)
 
-    assert main.page_find("Нет такой статьи", "goals scored") == "no such page"
+    assert wiki_tools.page_find("Нет такой статьи", "goals scored") == "no such page"
 
 
 def test_page_find_without_matches(install_wiki: InstallWiki) -> None:
     install_wiki(html=PAGE)
 
-    assert main.page_find("T", "weather forecast") == "keywords not found on the page"
+    assert wiki_tools.page_find("T", "weather forecast") == "keywords not found on the page"
 
 
 def test_page_find_with_only_short_keywords(install_wiki: InstallWiki) -> None:
     install_wiki(html=PAGE)
 
-    assert main.page_find("T", "a of in") == "keywords not found on the page"
+    assert wiki_tools.page_find("T", "a of in") == "keywords not found on the page"
 
 
 # --- page_find: ошибка -----------------------------------------------------------
@@ -174,7 +175,7 @@ def test_page_find_propagates_wiki_error(install_wiki: InstallWiki) -> None:
     install_wiki(error=RuntimeError("Википедия ответила 503"))
 
     with pytest.raises(RuntimeError, match="503"):
-        main.page_find("T", "goals scored")
+        wiki_tools.page_find("T", "goals scored")
 
 
 # --- run_tool: как ошибку инструмента видит агент --------------------------------
@@ -240,14 +241,25 @@ class FakeResponse:
 
 def test_wiki_returns_empty_dict_for_missing_page(monkeypatch: pytest.MonkeyPatch) -> None:
     payload = {"error": {"code": "missingtitle", "info": "The page you specified doesn't exist."}}
-    monkeypatch.setattr(main.requests, "get", lambda *a, **kw: FakeResponse(payload))
+    monkeypatch.setattr(wiki_tools.requests, "get", lambda *a, **kw: FakeResponse(payload))
 
-    assert main.wiki({"action": "parse", "page": "Нет такой статьи"}) == {}
+    assert wiki_tools.wiki({"action": "parse", "page": "Нет такой статьи"}) == {}
 
 
 def test_wiki_raises_on_other_api_error(monkeypatch: pytest.MonkeyPatch) -> None:
     payload = {"error": {"code": "badvalue", "info": "Unrecognized value"}}
-    monkeypatch.setattr(main.requests, "get", lambda *a, **kw: FakeResponse(payload))
+    monkeypatch.setattr(wiki_tools.requests, "get", lambda *a, **kw: FakeResponse(payload))
 
     with pytest.raises(RuntimeError, match="Unrecognized value"):
-        main.wiki({"action": "parse", "page": "T"})
+        wiki_tools.wiki({"action": "parse", "page": "T"})
+
+
+def test_wiki_retries_network_error_then_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+    def broken(*args: Any, **kwargs: Any) -> FakeResponse:
+        raise wiki_tools.requests.ConnectionError("down")
+
+    monkeypatch.setattr(wiki_tools.requests, "get", broken)
+    monkeypatch.setattr(wiki_tools.time, "sleep", lambda seconds: None)
+
+    with pytest.raises(RuntimeError, match="ConnectionError"):
+        wiki_tools.wiki({"action": "query", "list": "search", "srsearch": "x"})

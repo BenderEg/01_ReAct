@@ -11,13 +11,13 @@ import pytest
 
 os.environ.setdefault("OPENROUTER_API_KEY", "test-key")
 
-import main  # noqa: E402  (импорт только после подмены ключа)
+from utils import wiki_tools  # noqa: E402
 
 Params = dict[str, Any]
 
 
 class FakeWiki:
-    """Подмена main.wiki: отдаёт заготовленные ответы и помнит, о чём её спросили.
+    """Подмена wiki_tools.wiki: отдаёт заготовленные ответы и помнит, о чём её спросили.
 
     search — хиты для action=query&list=search;
     html — HTML страницы для action=parse (None = страницы нет: настоящая wiki()
@@ -46,11 +46,11 @@ InstallWiki = Callable[..., FakeWiki]
 
 @pytest.fixture
 def install_wiki(monkeypatch: pytest.MonkeyPatch) -> InstallWiki:
-    """Ставит FakeWiki вместо main.wiki и возвращает его, чтобы смотреть вызовы."""
+    """Ставит FakeWiki вместо wiki_tools.wiki и возвращает его, чтобы смотреть вызовы."""
 
     def install(**kwargs: Any) -> FakeWiki:
         fake = FakeWiki(**kwargs)
-        monkeypatch.setattr(main, "wiki", fake)
+        monkeypatch.setattr(wiki_tools, "wiki", fake)
         return fake
 
     return install

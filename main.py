@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pydantic import BaseModel, Field
 
-from utils.wiki_text import html_lines
+from utils.wiki_tools import TOOLS, call_tool
 
 try:
     from dotenv import load_dotenv
@@ -77,71 +77,8 @@ def chat(messages: list[dict], model: str, tools: list[dict] | None = None, tag=
     ledger.add(tag, model, data.get("usage") or {}, time.perf_counter() - started)
     return data["choices"][0]["message"]
 
-WIKI = "https://en.wikipedia.org/w/api.php"
-WIKI_HEADERS = {"User-Agent": "agents-course-seminar01/1.0 (https://postypashki.ru; educational project)"}
-
-def wiki(params: dict, attempts: int = 3) -> dict:
-    """Ответ Википедии для params["action"] (query или parse); {} если страницы нет."""
-    for attempt in range(attempts):
-        r = requests.get(WIKI, params={**params, "format": "json"}, headers=WIKI_HEADERS, timeout=15)
-        if r.status_code == 200 and r.headers.get("content-type", "").startswith("application/json"):
-            data = r.json()
-            if "error" in data:
-                if data["error"].get("code") == "missingtitle":
-                    return {}
-                raise RuntimeError(f"Википедия: {data['error'].get('info')}")
-            return data[params["action"]]
-        time.sleep(1.0 + attempt)
-    raise RuntimeError(f"Википедия ответила {r.status_code}")
-
-def page_html(title: str, intro: bool = False) -> str:
-    """HTML статьи после парсера, с шаблонами (footballbox, инфобоксы); intro=True — только вводная секция."""
-    params = {"action": "parse", "page": title, "prop": "text", "redirects": 1, "formatversion": 2}
-    if intro:
-        params["section"] = 0
-    return wiki(params).get("text", "")
-
-class SearchArgs(BaseModel):
-    query: str = Field(description="короткий поисковый запрос: имя, название, термин")
-
-class PageFindArgs(BaseModel):
-    title: str = Field(description="точное название статьи")
-    keywords: str = Field(description="от двух до пяти ключевых слов из вопроса")
-
 class ExecArgs(BaseModel):
     code: str = Field(description="код на Python; результат надо напечатать через print")
-
-def web_search(query):
-    hits = wiki({"action": "query", "list": "search", "srsearch": query, "srlimit": 3})["search"]
-    if not hits:
-        return "nothing found"
-    text = " ".join(html_lines(page_html(hits[0]["title"], intro=True)))[:1500]
-    others = ", ".join(h["title"] for h in hits[1:])
-    return f"[{hits[0]['title']}] {text}" + (f" | other articles: {others}" if others else "")
-
-def page_find(title, keywords):
-    """Строки статьи (предложения, строки таблиц, карточки матчей footballbox), где встречается
-    хотя бы половина ключевых слов; сначала строки с наибольшим числом совпадений."""
-    html = page_html(title)
-    if not html:
-        return "no such page"
-    words = [w for w in re.findall(r"\w+", keywords.lower()) if len(w) > 2]
-    need = max(1, (len(words) + 1) // 2)
-    scored = [(sum(w in l.lower() for w in words), l) for l in html_lines(html)]
-    hits = [l for s, l in sorted(scored, key=lambda p: -p[0]) if s >= need]
-    return "\n".join(h[:400] for h in hits[:6]) or "keywords not found on the page"
-
-TOOLS = {
-    "web_search": {"fn": web_search, "args": SearchArgs, "schema": {"type": "function", "function": {
-        "name": "web_search", "description": "Searches English Wikipedia and returns the intro of the best article and the titles of two more",
-        "parameters": {"type": "object", "properties": {"query": {"type": "string", "description": "short query: a name, a title, a term"}},
-                       "required": ["query"]}}}},
-    "page_find": {"fn": page_find, "args": PageFindArgs, "schema": {"type": "function", "function": {
-        "name": "page_find", "description": "Looks inside the full text of a Wikipedia article (for example '2026 in Japan') and returns the lines containing the keywords",
-        "parameters": {"type": "object", "properties": {"title": {"type": "string", "description": "exact article title"},
-                                                        "keywords": {"type": "string", "description": "two to five keywords from the question"}},
-                       "required": ["title", "keywords"]}}}},
-}
 
 def looped(seen, calls):
     keys = [(c["function"]["name"], c["function"]["arguments"]) for c in calls]
@@ -174,9 +111,7 @@ def run_tool(call):
     name = call["function"]["name"]
 
     try:
-        spec = TOOLS[name]
-        args = spec["args"].model_validate_json(call["function"]["arguments"])
-        result = spec["fn"](**args.model_dump())
+        result = call_tool(name, call["function"]["arguments"])
     except Exception as e:
         result = f"НЕ удалось вызвать инструмент {name}: {e}"
     return {"role": "tool", "tool_call_id" : call["id"], "content": str(result)[:2000]}
