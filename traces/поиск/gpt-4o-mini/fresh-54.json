@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_J#Argentina_vs_Algeria"
  },
  "answer": "Lionel Messi became the first male player to play in six FIFA World Cups. \n\nFINAL: 6",
- "correct": false,
+ "correct": true,
  "cost": 0.00012809999999999905,
  "messages": [
   {

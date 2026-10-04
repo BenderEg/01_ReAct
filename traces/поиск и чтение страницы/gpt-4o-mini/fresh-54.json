@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_J#Argentina_vs_Algeria"
  },
  "answer": "Lionel Messi became the first male player to participate in a total of **six** FIFA World Cups during the 2026 tournament. \n\nFINAL: 6",
- "correct": false,
+ "correct": true,
  "cost": 0.00067890000000001,
  "messages": [
   {

@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#Switzerland_vs_Colombia"
  },
  "answer": "Switzerland's progression to the quarterfinals in 2026 marked their first appearance in that stage in 72 years since 1954. \n\nFINAL: 72",
- "correct": false,
+ "correct": true,
  "cost": 0.0002476499999999604,
  "messages": [
   {

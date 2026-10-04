@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_K#Portugal_vs_Uzbekistan"
  },
  "answer": "Perfect! I found the answer. According to the Wikipedia page for the 2026 FIFA World Cup Group K, Cristiano Ronaldo scored twice in the first half of the Portugal vs Uzbekistan match and became the first player to score in six FIFA World Cup tournaments.\n\nFINAL: 6",
- "correct": false,
+ "correct": true,
  "cost": 0.01884600000000014,
  "messages": [
   {

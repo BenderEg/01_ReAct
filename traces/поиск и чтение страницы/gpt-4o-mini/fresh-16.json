@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_C#Brazil_vs_Haiti"
  },
  "answer": "Haiti became the first team eliminated from the 2026 World Cup after losing two consecutive matches. \n\nFINAL: 2",
- "correct": false,
+ "correct": true,
  "cost": 0.00014264999999999417,
  "messages": [
   {

@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, TextIO
 
 from lesson import fetch_fresh as ff
+from utils import answer_check
 
 QuizRow = dict[str, Any]
 
@@ -25,9 +26,8 @@ def read_jsonl(path: Path) -> list[QuizRow]:
 
 
 def graded(gold: str, candidate: str) -> bool:
-    """Grade like `fetch_fresh` does: normalized gold must appear inside the normalized answer."""
-    gold_normalized, candidate_normalized = ff.normalize(gold), ff.normalize(candidate)
-    return bool(gold_normalized) and gold_normalized in candidate_normalized
+    """Grade like `main.is_correct`: see `utils/answer_check.py` for the normalization rules."""
+    return answer_check.is_correct(gold, candidate)
 
 
 def _answer_or_empty(result: str | BaseException, row_id: str, label: str) -> str:

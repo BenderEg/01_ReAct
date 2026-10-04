@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#France_vs_Morocco"
  },
  "answer": "Morocco failed to record a shot on target until the 84th minute. \n\nFINAL: 84",
- "correct": false,
+ "correct": true,
  "cost": 0.0002236499999999919,
  "messages": [
   {

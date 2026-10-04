@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_round_of_32#England_vs_DR_Congo"
  },
  "answer": "DR Congo last appeared in the FIFA World Cup in 1974 before their participation in 2026. The number of years since their last appearance is 52 years.\n\nFINAL: 52",
- "correct": false,
+ "correct": true,
  "cost": 0.0003495000000000026,
  "messages": [
   {

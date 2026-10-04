@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pydantic import BaseModel, Field
 
+from utils import answer_check
 from utils.wiki_tools import TOOLS, call_tool
 
 try:
@@ -88,7 +89,8 @@ def looped(seen, calls):
 
 def finish(model, messages, step):
     del messages[-1]
-    messages.append({"role": "user", "content": "Инструменты больше недоступны. Ответь по тому, что уже известно, последней строкой FINAL: <ответ>."})
+    messages.append({"role": "user", "content": "Tools are no longer available. Answer from what you already know; "
+                                                "write the last line as FINAL: <answer> in English."})
     msg = chat(messages, model, tag="agent")
     messages.append(msg)
     return msg.get("content") or "", step + 1
@@ -132,11 +134,15 @@ class Run:
     cost: float = 0.0
     seconds: float = 0.0
 
-SYSTEM = ("Ты отвечаешь на вопросы про чемпионат мира 2026 года."
-    "Если нужно найти факт, вызывай инструменты, а не угадывай. "
-    "Добавляй в поисковые запросы уточнение, что запрос про чемпионат мира 2026 года"
-    "Когда ответ готов, напиши его последней строкой в формате FINAL: <ответ>. "
-    "Для числовых задач в FINAL только число, для вопросов о фактах короткая фраза.")
+# Промпт на английском: на русском модель отвечала кириллицей («Криштиану Роналду»),
+# а эталоны английские, и верные ответы не засчитывались (см. utils/answer_check.py).
+SYSTEM = ("You answer questions about the 2026 FIFA World Cup. "
+    "If you need a fact, call the tools instead of guessing. "
+    "Mention the 2026 FIFA World Cup in your search queries. "
+    "When the answer is ready, write it as the last line in the format FINAL: <answer>. "
+    "The FINAL answer must be in English, with names and terms spelled exactly as in the source article; "
+    "write numbers as digits; give a short phrase, no explanation. "
+    "If you could not find the answer, write FINAL: unknown.")
 
 CONFIGS = {
     "без инструментов": [],
@@ -151,13 +157,13 @@ def agent(question, model, tool_names, max_steps=8):
     answer, steps = agent_loop(messages, model, tool_names, max_steps)
     return Run(question, answer, steps, messages, ledger.total - before, time.perf_counter() - started)
 
-def normalize(text):
-    text = re.sub(r"[^\w\s]", " ", str(text).lower().replace(",", ""))
-    text = re.sub(r"\b(a|an|the)\b", " ", text)
-    return " ".join(text.split())
+ERROR_PREFIX = "ошибка:"
 
 def is_correct(task, answer):
-    return normalize(task["answer"]) in normalize(answer)
+    """Правила сравнения — в utils/answer_check.py; упавший прогон не засчитывается никогда."""
+    if answer.startswith(ERROR_PREFIX):
+        return False
+    return answer_check.is_correct(task["answer"], answer)
 
 def final_answer(text):
     m = re.search(r"FINAL:\s*(.+)", text or "")
@@ -171,7 +177,7 @@ def run_tasks(tasks, model, tool_names, config):
         try:
             run = agent(task["question"], model, tool_names)
         except Exception as e:
-            run = Run(task["question"], f"ошибка: {e}", 0, [])
+            run = Run(task["question"], f"{ERROR_PREFIX} {e}", 0, [])
         ok = is_correct(task, final_answer(run.answer))
         rows.append({"config": config, "model": model.split("/")[-1], "id": task["id"], "source": task["source"],
                      "correct": ok, "steps": run.steps, "tool_calls": sum(m["role"] == "tool" for m in run.messages),
@@ -226,6 +232,32 @@ def run_experiment(levels: list[str], config_names: list[str], limit: int | None
     results.to_csv(RESULTS / "all_runs.csv", index=False, encoding="utf-8")
     return results
 
+def rescore() -> pd.DataFrame:
+    """Переоценить сохранённые прогоны текущим is_correct без вызовов модели.
+
+    Берёт каждую results/<конфиг>__<уровень>.csv, для каждой строки читает полный ответ из
+    трейса, пишет новый correct и в CSV, и в трейс, пересобирает results/all_runs.csv.
+    """
+    frames = []
+    for csv_path in sorted(RESULTS.glob("*__*.csv")):
+        df = pd.read_csv(csv_path, encoding="utf-8")
+        for idx, row in df.iterrows():
+            trace_path = TRACES / row["config"] / row["model"] / f"{row['id']}.json"
+            if not trace_path.exists():
+                print(f"  нет трейса {trace_path}, оценка оставлена прежней", flush=True)
+                continue
+            trace = json.loads(trace_path.read_text(encoding="utf-8"))
+            ok = is_correct(trace["task"], final_answer(trace["answer"]))
+            trace["correct"] = ok
+            trace_path.write_text(json.dumps(trace, ensure_ascii=False, indent=1), encoding="utf-8")
+            df.at[idx, "correct"] = ok
+        df.to_csv(csv_path, index=False, encoding="utf-8")
+        print(f"{csv_path.name}: верно {int(df['correct'].sum())}/{len(df)}", flush=True)
+        frames.append(df)
+    results = pd.concat(frames, ignore_index=True)
+    results.to_csv(RESULTS / "all_runs.csv", index=False, encoding="utf-8")
+    return results
+
 def money_chart(table, path="img/money_quality.png"):
     fig, ax = plt.subplots(figsize=(8, 5))
     for _, r in table.iterrows():
@@ -245,7 +277,13 @@ if __name__ == "__main__":
     parser.add_argument("--levels", nargs="+", default=["cheap"], choices=list(MODELS))
     parser.add_argument("--configs", nargs="+", default=list(CONFIGS), choices=list(CONFIGS))
     parser.add_argument("--limit", type=int, default=None, help="взять только первые N вопросов")
+    parser.add_argument("--rescore", action="store_true",
+                        help="не звать модели, а переоценить сохранённые трейсы текущим is_correct")
     args = parser.parse_args()
+
+    if args.rescore:
+        print(report(rescore()).to_string(index=False))
+        raise SystemExit(0)
 
     results = run_experiment(args.levels, args.configs, limit=args.limit)
     table = report(results)

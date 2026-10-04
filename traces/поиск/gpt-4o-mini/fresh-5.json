@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A#Czech_Republic_vs_Mexico"
  },
  "answer": "Guillermo Ochoa was selected for six consecutive FIFA World Cup squads from 2006 to 2026. \n\nFINAL: 6",
- "correct": false,
+ "correct": true,
  "cost": 0.00015269999999999867,
  "messages": [
   {

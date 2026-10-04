@@ -9,7 +9,7 @@
   "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage#Paraguay_vs_France"
  },
  "answer": "Перед матчем Парагвай против Франции на чемпионате мира 2026 года отмечался 250-й юбилей Декларации независимости США. \n\nFINAL: 250-й юбилей Декларации независимости США.",
- "correct": false,
+ "correct": true,
  "cost": 0.0004043999999999992,
  "messages": [
   {
