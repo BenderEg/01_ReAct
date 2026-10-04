@@ -226,8 +226,8 @@ def final_answer(text):
     m = re.search(r"FINAL:\s*(.+)", text or "")
     return m.group(1).strip() if m else (text or "").strip()
 
-def run_tasks(tasks, model, tool_names, config):
-    folder = TRACES / config / model.split("/")[-1]
+def run_tasks(tasks, model, tool_names, config, traces: Path = TRACES):
+    folder = traces / config / model.split("/")[-1]
     folder.mkdir(parents=True, exist_ok=True)
     rows = []
     for task in tasks:
@@ -322,6 +322,68 @@ def retry_errors(levels: list[str], config_names: list[str]) -> pd.DataFrame:
                   f"ещё с ошибкой {int(df['answer'].astype(str).str.startswith(ERROR_PREFIX).sum())}", flush=True)
     return rebuild_all_runs()
 
+RERUN = "повторные запуски"
+
+def rerun_failed(levels: list[str], config_names: list[str]) -> pd.DataFrame:
+    """Перезапустить все неверные задачи (correct == False) сохранённых прогонов.
+
+    Старые results/<конфиг>__<уровень>.csv и трейсы не трогаются: новые трейсы пишутся в
+    traces/повторные запуски/, таблицы — в results/повторные запуски/.
+    """
+    tasks = {t["id"]: t for t in load_tasks()}
+    out = RESULTS / RERUN
+    out.mkdir(parents=True, exist_ok=True)
+    frames = []
+    for name in config_names:
+        for level in levels:
+            csv_path = RESULTS / f"{name}__{level}.csv"
+            if not csv_path.exists():
+                print(f"{csv_path.name}: нет прогона, пропускаю", flush=True)
+                continue
+            df = pd.read_csv(csv_path, encoding="utf-8")
+            failed = df.loc[~df["correct"].astype(bool), "id"].tolist()
+            print(f"{csv_path.name}: повторный запуск {len(failed)} неверных", flush=True)
+            if not failed:
+                continue
+            redo = run_tasks([tasks[i] for i in failed], MODELS[level], CONFIGS[name], name, traces=TRACES / RERUN)
+            redo.to_csv(out / csv_path.name, index=False, encoding="utf-8")
+            print(f"  верно {int(redo['correct'].sum())}/{len(redo)}, ${redo['cost'].sum():.4f}, "
+                  f"с ошибкой {int(redo['answer'].astype(str).str.startswith(ERROR_PREFIX).sum())}", flush=True)
+            frames.append(redo)
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+
+def rerun_comparison(levels: list[str], config_names: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """До и после правок на одних и тех же задачах плюс сводная точность на всём датасете.
+
+    Только из сохранённых CSV, без вызовов модели. Первая таблица — строки summary для
+    старого прогона на перезапущенных id и для повторного; вторая — старые верные плюс
+    исправленные повтором на всех вопросах.
+    """
+    rows, merged = [], []
+    for name in config_names:
+        for level in levels:
+            redo_path = RESULTS / RERUN / f"{name}__{level}.csv"
+            if not redo_path.exists():
+                continue
+            old = pd.read_csv(RESULTS / f"{name}__{level}.csv", encoding="utf-8")
+            redo = pd.read_csv(redo_path, encoding="utf-8")
+            before = old[old["id"].isin(redo["id"])]
+            model = MODELS[level]
+            for label, df in (("до правок", before), ("после правок", redo)):
+                rows.append(summary(f"{name}, {label}", model, len(df), int(df["correct"].sum()),
+                                    df["cost"].sum(), df["steps"].mean(), df["seconds"].mean()))
+            kept, fixed = int(old["correct"].sum()), int(redo["correct"].sum())
+            merged.append({"config": name, "model": model.split("/")[-1], "n": len(old), "old_correct": kept,
+                           "fixed": fixed, "accuracy_before": round(kept / len(old), 2),
+                           "accuracy_merged": round((kept + fixed) / len(old), 2)})
+    return pd.DataFrame(rows), pd.DataFrame(merged)
+
+def rerun_report(levels: list[str], config_names: list[str], path: str = "img/money_quality_rerun.png") -> None:
+    table, merged = rerun_comparison(levels, config_names)
+    print(table.to_string(index=False))
+    print(merged.to_string(index=False))
+    money_chart(table[table["config"].str.endswith("после правок")], path=path)
+
 def rescore() -> pd.DataFrame:
     """Переоценить сохранённые прогоны текущим is_correct без вызовов модели.
 
@@ -369,11 +431,22 @@ if __name__ == "__main__":
                         help="перезапустить только задачи, упавшие с ошибкой (например HTTP 429), в сохранённых прогонах")
     parser.add_argument("--rpm", type=float, default=None,
                         help="не больше N запросов в минуту к одной модели (новый аккаунт OpenRouter: 20)")
+    parser.add_argument("--rerun-failed", action="store_true",
+                        help="перезапустить все неверные задачи; трейсы и CSV — в папки «повторные запуски»")
+    parser.add_argument("--rerun-report", action="store_true",
+                        help="не звать модели, а пересобрать сравнение до/после и график повторных запусков")
     args = parser.parse_args()
     throttle.rpm = args.rpm
 
     if args.rescore:
         print(report(rescore()).to_string(index=False))
+        raise SystemExit(0)
+
+    if args.rerun_failed or args.rerun_report:
+        if args.rerun_failed:
+            rerun_failed(args.levels, args.configs)
+            print(f"итого потрачено ${ledger.total:.4f}")
+        rerun_report(args.levels, args.configs)
         raise SystemExit(0)
 
     results = (retry_errors(args.levels, args.configs) if args.retry_errors
