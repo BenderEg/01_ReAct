@@ -9,7 +9,7 @@ HEADERS = {"User-Agent": "agents-course-seminar01/1.0 (https://postypashki.ru; e
 LINK_RE = re.compile(r'href="(?:https?://en\.wikipedia\.org)?(/wiki/2026_FIFA_World_Cup_\w+#\w+)"')
 # Fragments that identify a single match without naming both teams in the URL
 # (the final and the third-place match keep a fixed section title instead).
-SPECIAL_FRAGMENTS = {"Final", "Match_for_third_place"}
+SPECIAL_FRAGMENTS = {"Match_for_third_place"}
 
 
 async def fetch_html(url: str = WORLD_CUP_URL) -> str:

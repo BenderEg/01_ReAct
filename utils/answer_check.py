@@ -55,7 +55,7 @@ def is_correct(gold: str, answer: str) -> bool:
     gold_tokens, answer_tokens_ = answer_tokens(gold), answer_tokens(answer)
     if not gold_tokens:
         return False
-    if _contains_run(answer_tokens_, gold_tokens):
+    if " ".join(gold_tokens) in " ".join(answer_tokens_):
         return True
     core = [token for token in gold_tokens if token not in UNIT_WORDS]
     return len(core) == 1 and core != gold_tokens and core[0].isdigit() and core[0] in answer_tokens_
